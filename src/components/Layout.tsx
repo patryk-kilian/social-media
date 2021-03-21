@@ -2,7 +2,7 @@ import Header from './Header';
 import { Box } from '@chakra-ui/react';
 
 type LayoutProps = {
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
 function Layout({ children }: LayoutProps) {

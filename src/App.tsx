@@ -6,6 +6,7 @@ import SignIn from './pages/sign-in';
 import SignUp from './pages/sign-up';
 import Dashboard from './pages/dashboard';
 import Fonts from './components/Fonts';
+import { AuthProvider } from './context/auth-context';
 
 const theme = extendTheme({
   fonts: {
@@ -16,15 +17,17 @@ const theme = extendTheme({
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <CSSReset />
-      <Fonts />
-      <Router>
-        <Switch>
-          <Route path={ROUTES.SIGN_IN} component={SignIn} />
-          <Route path={ROUTES.SIGN_UP} component={SignUp} />
-          <Route path={ROUTES.DASHBOARD} component={Dashboard} exact />
-        </Switch>
-      </Router>
+      <AuthProvider>
+        <CSSReset />
+        <Fonts />
+        <Router>
+          <Switch>
+            <Route path={ROUTES.SIGN_IN} component={SignIn} />
+            <Route path={ROUTES.SIGN_UP} component={SignUp} />
+            <Route path={ROUTES.DASHBOARD} component={Dashboard} exact />
+          </Switch>
+        </Router>
+      </AuthProvider>
     </ChakraProvider>
   );
 }

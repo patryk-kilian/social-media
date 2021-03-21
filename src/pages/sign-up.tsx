@@ -1,5 +1,5 @@
 import { Center } from '@chakra-ui/react';
-import SignUpForm from '../components/form/SignUpForm';
+import SignUpForm from '../components/SignUpForm';
 
 function SignUp() {
   return (

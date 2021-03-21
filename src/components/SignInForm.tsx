@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -11,15 +11,18 @@ import {
   Heading,
   Text,
   Link,
+  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import {
   nameValidate,
   passwordValidate,
   emailValidate,
-} from '../../utils/form-validate';
+} from '../utils/form-validate';
 import { Link as RouterLink } from 'react-router-dom';
-import { SIGN_UP } from '../../constants/routes';
+import { SIGN_UP, DASHBOARD } from '../constants/routes';
+import { useAuth } from '../context/auth-context';
+import { useHistory } from 'react-router-dom';
 
 type FormData = {
   name: string;
@@ -29,11 +32,49 @@ type FormData = {
 
 function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, errors } = useForm<FormData>();
+  const { register, handleSubmit, errors, reset } = useForm<FormData>();
+  const { authUser, login } = useAuth();
+  const [isLoading, setLoading] = useState(false);
+  const toast = useToast();
+  const history = useHistory();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
-  const handleSignInSubmit = (data: FormData) => console.log(data);
+  const handleSignInSubmit = async (data: FormData) => {
+    const userData = {
+      password: data.password,
+      email: data.email,
+    };
+
+    try {
+      setLoading(true);
+
+      const loggedUser = await login(userData);
+
+      toast({
+        title: 'You are logged in',
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+      });
+    } catch (error) {
+      toast({
+        title: 'Signing In failed',
+        description: error.message,
+        status: 'error',
+        isClosable: true,
+        position: 'top',
+      });
+    }
+
+    setLoading(false);
+    reset();
+  };
+
+  useEffect(() => {
+    document.title = 'Sign In';
+    if (authUser) history.push(DASHBOARD);
+  }, [authUser]);
 
   return (
     <Box mx='1' maxW='md' w='100%' p='9' borderWidth='1px' borderRadius='lg'>
@@ -41,21 +82,14 @@ function SignInForm() {
         Sign In
       </Heading>
       <form onSubmit={handleSubmit(handleSignInSubmit)}>
-        <FormControl isInvalid={errors.name} py='2'>
-          <FormLabel htmlFor='name'>Username</FormLabel>
-          <Input name='name' ref={register(nameValidate)} />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={errors.email} py='2'>
+        <FormControl isInvalid={errors.email ? true : false} py='2'>
           <FormLabel htmlFor='name'>Email</FormLabel>
           <Input name='email' ref={register(emailValidate)} />
           <FormErrorMessage>
             {errors.email && errors.email.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.password} py='2'>
+        <FormControl isInvalid={errors.password ? true : false} py='2'>
           <FormLabel htmlFor='password'>Password</FormLabel>
           <InputGroup>
             <Input
@@ -73,7 +107,15 @@ function SignInForm() {
             {errors.password && errors.password.message}
           </FormErrorMessage>
         </FormControl>
-        <Button mt='4' type='submit' colorScheme='purple' size='md' isFullWidth>
+        <Button
+          mt='4'
+          type='submit'
+          colorScheme='purple'
+          size='md'
+          isFullWidth
+          isLoading={isLoading ? true : false}
+          loadingText='Signing In'
+        >
           Sign In
         </Button>
       </form>

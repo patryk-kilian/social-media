@@ -1,5 +1,5 @@
 import { Center } from '@chakra-ui/react';
-import SignInForm from '../components/form/SignInForm';
+import SignInForm from '../components/SignInForm';
 
 function SignIn() {
   return (
