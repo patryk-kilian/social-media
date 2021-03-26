@@ -4,7 +4,7 @@ import { queryClient } from '../App';
 
 const updateLoggedInUserFollowing = async (
   activeUserDocId: string,
-  profileId: string,
+  profileUserId: string,
   isFollowingProfile: boolean
 ) => {
   return firebase
@@ -13,13 +13,13 @@ const updateLoggedInUserFollowing = async (
     .doc(activeUserDocId)
     .update({
       following: isFollowingProfile
-        ? FieldValue.arrayRemove(profileId)
-        : FieldValue.arrayUnion(profileId),
+        ? FieldValue.arrayRemove(profileUserId)
+        : FieldValue.arrayUnion(profileUserId),
     });
 };
 
 const updateFollowedUserFollowers = (
-  activeUserDocId: string,
+  activeUserId: string,
   profileDocId: string,
   isFollowingProfile: boolean
 ) => {
@@ -29,8 +29,8 @@ const updateFollowedUserFollowers = (
     .doc(profileDocId)
     .update({
       followers: isFollowingProfile
-        ? FieldValue.arrayRemove(activeUserDocId)
-        : FieldValue.arrayUnion(activeUserDocId),
+        ? FieldValue.arrayRemove(activeUserId)
+        : FieldValue.arrayUnion(activeUserId),
     });
 };
 
@@ -38,6 +38,7 @@ export const useToggleFollow = () => {
   return useMutation(
     async (toggleFollowData: any) => {
       const {
+        activeUserId,
         activeUserDocId,
         profileUserId,
         isFollowingProfile,
@@ -51,8 +52,8 @@ export const useToggleFollow = () => {
       );
 
       await updateFollowedUserFollowers(
+        activeUserId,
         profileDocId,
-        activeUserDocId,
         isFollowingProfile
       );
     },

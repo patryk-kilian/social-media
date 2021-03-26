@@ -27,10 +27,10 @@ function User({ user, activeUser, isUserLoading }: UserProps) {
   const handleToggleFollow = () => {
     const toggleFollowData = {
       activeUserDocId: activeUser.docId,
+      activeUserId: activeUser.userId,
       profileUserId: user.userId,
-      isFollowingProfile,
-      followingUserId: activeUser.userId,
       profileDocId: user.docId,
+      isFollowingProfile,
     };
 
     toggleFollow(toggleFollowData);
