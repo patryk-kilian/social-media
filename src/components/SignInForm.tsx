@@ -14,11 +14,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import {
-  nameValidate,
-  passwordValidate,
-  emailValidate,
-} from '../utils/form-validate';
+import { passwordValidate, emailValidate } from '../utils/form-validate';
 import { Link as RouterLink } from 'react-router-dom';
 import { SIGN_UP, DASHBOARD } from '../constants/routes';
 import { useAuth } from '../context/auth-context';
@@ -33,7 +29,7 @@ type FormData = {
 function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm<FormData>();
-  const { authUser, login } = useAuth();
+  const { login } = useAuth();
   const [isLoading, setLoading] = useState(false);
   const toast = useToast();
   const history = useHistory();
@@ -49,7 +45,7 @@ function SignInForm() {
     try {
       setLoading(true);
 
-      const loggedUser = await login(userData);
+      await login(userData);
 
       toast({
         title: 'You are logged in',
@@ -57,6 +53,8 @@ function SignInForm() {
         isClosable: true,
         position: 'top',
       });
+
+      history.push(DASHBOARD);
     } catch (error) {
       toast({
         title: 'Signing In failed',
@@ -73,8 +71,7 @@ function SignInForm() {
 
   useEffect(() => {
     document.title = 'Sign In';
-    if (authUser) history.push(DASHBOARD);
-  }, [authUser]);
+  }, []);
 
   return (
     <Box mx='1' maxW='md' w='100%' p='9' borderWidth='1px' borderRadius='lg'>

@@ -1,8 +1,7 @@
 import { Box, Image, Text } from '@chakra-ui/react';
-import { useAuth } from '../../context/auth-context';
 
-function AuthUser() {
-  const { authUser } = useAuth();
+function AuthUser({ user }: { user: any }) {
+  const { username } = user;
 
   return (
     <Box py='5'>
@@ -14,7 +13,7 @@ function AuthUser() {
         borderRadius='full'
       />
       <Text align='center' mt='2'>
-        {authUser?.displayName}
+        {username}
       </Text>
     </Box>
   );

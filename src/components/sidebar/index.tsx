@@ -1,8 +1,15 @@
 import { Box } from '@chakra-ui/react';
 import AuthUser from './AuthUser';
 import UsersList from './UsersList';
+import { useUser } from '../../hooks/useUser';
+import { useAuth } from '../../context/auth-context';
 
 function Sidebar() {
+  const { authUser } = useAuth();
+  const { data: activeUser, isLoading } = useUser(authUser.uid);
+
+  if (isLoading) return <Box>Loading</Box>;
+
   return (
     <Box
       pt='16'
@@ -14,8 +21,8 @@ function Sidebar() {
       borderLeft='1px solid'
       borderLeftColor='purple.100'
     >
-      <AuthUser />
-      <UsersList />
+      <AuthUser user={activeUser} />
+      <UsersList user={activeUser} />
     </Box>
   );
 }

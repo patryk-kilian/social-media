@@ -1,6 +1,43 @@
+import { useRef } from 'react';
 import { Flex, Image, Text, Button } from '@chakra-ui/react';
+import { useToggleFollow } from '../../hooks/useToggleFollow';
+import useHover from '../../hooks/useHover';
+import NewUserSkeleton from '../skeleton/NewUserSkeleton';
+import { UserTypes } from '../../types/types';
 
-function User() {
+type UserProps = {
+  user: UserTypes;
+  activeUser: UserTypes | any;
+  isUserLoading: boolean;
+};
+
+function User({ user, activeUser, isUserLoading }: UserProps) {
+  const {
+    mutate: toggleFollow,
+    isLoading: isTogglingFollow,
+  } = useToggleFollow();
+
+  const hoverRef = useRef(null);
+  const isHovered = useHover(hoverRef);
+
+  const isFollowingProfile = activeUser?.following.find(
+    (userId: string) => userId === user.userId
+  );
+
+  const handleToggleFollow = () => {
+    const toggleFollowData = {
+      activeUserDocId: activeUser.docId,
+      profileUserId: user.userId,
+      isFollowingProfile,
+      followingUserId: activeUser.userId,
+      profileDocId: user.docId,
+    };
+
+    toggleFollow(toggleFollowData);
+  };
+
+  if (isUserLoading) return <NewUserSkeleton />;
+
   return (
     <Flex py='2' as='li' alignItems='center'>
       <Image
@@ -10,9 +47,19 @@ function User() {
         mr='3'
         borderRadius='full'
       />
-      <Text>Username</Text>
-      <Button size='sm' ml='auto' variant='outline' colorScheme='purple'>
-        Follow
+      <Text>{user.username}</Text>
+      <Button
+        isLoading={isTogglingFollow}
+        ref={hoverRef}
+        size='sm'
+        ml='auto'
+        variant={isFollowingProfile ? 'solid' : 'outline'}
+        colorScheme={
+          isFollowingProfile ? (isHovered ? 'red' : 'purple') : 'purple'
+        }
+        onClick={handleToggleFollow}
+      >
+        {isFollowingProfile ? (isHovered ? 'Unfollow' : 'Following') : 'Follow'}
       </Button>
     </Flex>
   );

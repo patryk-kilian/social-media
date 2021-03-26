@@ -7,6 +7,8 @@ import SignUp from './pages/sign-up';
 import Dashboard from './pages/dashboard';
 import Fonts from './components/Fonts';
 import { AuthProvider } from './context/auth-context';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 const theme = extendTheme({
   fonts: {
@@ -14,21 +16,26 @@ const theme = extendTheme({
   },
 });
 
+export const queryClient = new QueryClient();
+
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <AuthProvider>
-        <CSSReset />
-        <Fonts />
-        <Router>
-          <Switch>
-            <Route path={ROUTES.SIGN_IN} component={SignIn} />
-            <Route path={ROUTES.SIGN_UP} component={SignUp} />
-            <Route path={ROUTES.DASHBOARD} component={Dashboard} exact />
-          </Switch>
-        </Router>
-      </AuthProvider>
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <AuthProvider>
+          <CSSReset />
+          <Fonts />
+          <Router>
+            <Switch>
+              <Route path={ROUTES.SIGN_IN} component={SignIn} />
+              <Route path={ROUTES.SIGN_UP} component={SignUp} />
+              <Route path={ROUTES.DASHBOARD} component={Dashboard} exact />
+            </Switch>
+          </Router>
+        </AuthProvider>
+      </ChakraProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

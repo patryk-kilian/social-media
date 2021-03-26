@@ -1,8 +1,16 @@
 import { useAuth } from '../context/auth-context';
 import { Box, Flex, Button } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
+import { SIGN_IN } from '../constants/routes';
 
 function Header() {
   const { logout } = useAuth();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    logout();
+    history.push(SIGN_IN);
+  };
 
   return (
     <Box
@@ -27,7 +35,7 @@ function Header() {
         maxW='1200px'
       >
         <p>Home</p>
-        <Button colorScheme='purple' size='sm' onClick={() => logout()}>
+        <Button colorScheme='purple' size='sm' onClick={handleLogout}>
           Logout
         </Button>
       </Flex>

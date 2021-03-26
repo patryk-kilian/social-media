@@ -23,6 +23,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { SIGN_IN, DASHBOARD } from '../constants/routes';
 import { useAuth } from '../context/auth-context';
 import { useHistory } from 'react-router-dom';
+import { firebase } from '../lib/firebase';
 
 type FormData = {
   name: string;
@@ -34,7 +35,7 @@ function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm<FormData>();
-  const { signup, authUser } = useAuth();
+  const { signup } = useAuth();
   const history = useHistory();
   const toast = useToast();
 
@@ -51,6 +52,19 @@ function SignUpForm() {
       setLoading(true);
       const createdUser = await signup(userData);
 
+      await createdUser.user.updateProfile({
+        displayName: userData.name,
+      });
+
+      await firebase.firestore().collection('users').add({
+        userId: createdUser.user.uid,
+        username: userData.name.toLowerCase(),
+        emailAdress: userData.email.toLowerCase(),
+        following: [],
+        followers: [],
+        dateCreated: Date.now(),
+      });
+
       toast({
         title: 'Account created',
         description: 'You are logged in',
@@ -58,6 +72,10 @@ function SignUpForm() {
         isClosable: true,
         position: 'top',
       });
+
+      setLoading(false);
+
+      history.push(DASHBOARD);
     } catch (error) {
       toast({
         title: 'Signing Up failed',
@@ -66,16 +84,16 @@ function SignUpForm() {
         isClosable: true,
         position: 'top',
       });
+
+      setLoading(false);
     }
 
-    setLoading(false);
     reset();
   };
 
   useEffect(() => {
     document.title = 'Sign Up';
-    if (authUser) history.push(DASHBOARD);
-  }, [authUser]);
+  }, []);
 
   return (
     <Box mx='1' maxW='md' w='100%' p='9' borderWidth='1px' borderRadius='lg'>

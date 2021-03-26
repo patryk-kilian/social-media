@@ -13,3 +13,4 @@ const firebaseConfig = {
 
 export const firebase = Firebase.initializeApp(firebaseConfig)
 export const firebaseAuth = firebase.auth()
+export const {FieldValue} = Firebase.firestore
