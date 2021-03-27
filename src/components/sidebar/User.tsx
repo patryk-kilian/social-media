@@ -1,9 +1,8 @@
-import { useRef } from 'react';
-import { Flex, Image, Text, Button } from '@chakra-ui/react';
-import { useToggleFollow } from '../../hooks/useToggleFollow';
-import useHover from '../../hooks/useHover';
+import { Flex, Image, Text, Link } from '@chakra-ui/react';
 import NewUserSkeleton from '../skeleton/NewUserSkeleton';
 import { UserTypes } from '../../types/types';
+import FollowButton from '../../components/shared/FollowButton';
+import { Link as RouterLink } from 'react-router-dom';
 
 type UserProps = {
   user: UserTypes;
@@ -12,30 +11,6 @@ type UserProps = {
 };
 
 function User({ user, activeUser, isUserLoading }: UserProps) {
-  const {
-    mutate: toggleFollow,
-    isLoading: isTogglingFollow,
-  } = useToggleFollow();
-
-  const hoverRef = useRef(null);
-  const isHovered = useHover(hoverRef);
-
-  const isFollowingProfile = activeUser?.following.find(
-    (userId: string) => userId === user.userId
-  );
-
-  const handleToggleFollow = () => {
-    const toggleFollowData = {
-      activeUserDocId: activeUser.docId,
-      activeUserId: activeUser.userId,
-      profileUserId: user.userId,
-      profileDocId: user.docId,
-      isFollowingProfile,
-    };
-
-    toggleFollow(toggleFollowData);
-  };
-
   if (isUserLoading) return <NewUserSkeleton />;
 
   return (
@@ -47,20 +22,10 @@ function User({ user, activeUser, isUserLoading }: UserProps) {
         mr='3'
         borderRadius='full'
       />
-      <Text>{user.username}</Text>
-      <Button
-        isLoading={isTogglingFollow}
-        ref={hoverRef}
-        size='sm'
-        ml='auto'
-        variant={isFollowingProfile ? 'solid' : 'outline'}
-        colorScheme={
-          isFollowingProfile ? (isHovered ? 'red' : 'purple') : 'purple'
-        }
-        onClick={handleToggleFollow}
-      >
-        {isFollowingProfile ? (isHovered ? 'Unfollow' : 'Following') : 'Follow'}
-      </Button>
+      <Link as={RouterLink} to={`/profile/${user.userId}`}>
+        {user.username}
+      </Link>
+      <FollowButton ml='auto' size='sm' activeUser={activeUser} user={user} />
     </Flex>
   );
 }

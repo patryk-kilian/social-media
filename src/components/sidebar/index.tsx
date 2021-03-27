@@ -12,7 +12,6 @@ function Sidebar() {
 
   return (
     <Box
-      pt='16'
       px='6'
       minH='100vh'
       h='100%'

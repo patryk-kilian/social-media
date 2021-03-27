@@ -10,7 +10,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <>
       <Header />
-      <Flex mx='auto' width='full' maxW='1200px'>
+      <Flex pt='16' mx='auto' width='full' maxW='1200px'>
         <Box w='900px'>{children}</Box>
         <Sidebar />
       </Flex>
