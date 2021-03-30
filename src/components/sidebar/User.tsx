@@ -1,4 +1,4 @@
-import { Flex, Image, Text, Link } from '@chakra-ui/react';
+import { Flex, Image, Link } from '@chakra-ui/react';
 import NewUserSkeleton from '../skeleton/NewUserSkeleton';
 import { UserTypes } from '../../types/types';
 import FollowButton from '../../components/shared/FollowButton';
@@ -16,11 +16,13 @@ function User({ user, activeUser, isUserLoading }: UserProps) {
   return (
     <Flex py='2' as='li' alignItems='center'>
       <Image
-        src='/images/user-placeholder.jpg'
+        src={user.pictureUrl}
+        fallbackSrc='/images/user-placeholder.jpg'
         alt='user'
         boxSize='40px'
         mr='3'
         borderRadius='full'
+        objectFit='cover'
       />
       <Link as={RouterLink} to={`/profile/${user.userId}`}>
         {user.username}

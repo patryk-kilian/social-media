@@ -11,7 +11,6 @@ function Profile() {
 
   if (isLoading) return <div>Loading...</div>;
 
-  console.log(user);
   return (
     <Layout>
       <UserProfile user={user} />

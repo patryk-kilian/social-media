@@ -6,4 +6,6 @@ export type UserTypes = {
   userId?: string;
   username?: string;
   docId?: string;
+  pictureUrl?: string;
+  fullname?: string;
 }
