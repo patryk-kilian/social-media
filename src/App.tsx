@@ -11,6 +11,7 @@ import { AuthProvider } from './context/auth-context';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ActiveUserProvider } from './context/active-user';
+import NotFound from './pages/not-found';
 
 const theme = extendTheme({
   fonts: {
@@ -34,6 +35,7 @@ function App() {
                 <Route path={ROUTES.SIGN_UP} component={SignUp} />
                 <Route path={ROUTES.PROFILE} component={Profile} />
                 <Route path={ROUTES.DASHBOARD} component={Dashboard} exact />
+                <Route component={NotFound} />
               </Switch>
             </Router>
           </ActiveUserProvider>
