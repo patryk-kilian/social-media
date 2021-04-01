@@ -6,8 +6,6 @@ import { useActiveUser } from '../../context/active-user';
 function Sidebar() {
   const { activeUser, isLoading } = useActiveUser();
 
-  if (isLoading) return <Box>Loading</Box>;
-
   return (
     <Box
       px='6'
@@ -18,8 +16,8 @@ function Sidebar() {
       borderLeft='1px solid'
       borderLeftColor='purple.100'
     >
-      <ActiveUser user={activeUser} />
-      <UsersList user={activeUser} />
+      <ActiveUser isLoading={isLoading} user={activeUser} />
+      <UsersList activeUser={activeUser} />
     </Box>
   );
 }

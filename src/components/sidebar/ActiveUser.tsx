@@ -1,7 +1,10 @@
 import { Box, Image, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import ActiveUserSkeleton from '../skeleton/ActiveUserSkeleton';
 
-function ActiveUser({ user }: { user: any }) {
+function ActiveUser({ user, isLoading }: { user: any; isLoading: boolean }) {
+  if (isLoading) return <ActiveUserSkeleton />;
+
   const { username, pictureUrl } = user;
 
   return (

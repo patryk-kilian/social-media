@@ -2,9 +2,12 @@ import { Box, Heading } from '@chakra-ui/react';
 import User from './User';
 import { useNewUsers } from '../../hooks/useUsers';
 import { UserTypes } from '../../types/types';
+import NewUsersSkeleton from '../skeleton/NewUsersSkeleton';
 
-function UsersList({ user: activeUser }: { user: UserTypes | any }) {
+function UsersList({ activeUser }: { activeUser: UserTypes }) {
   const { data: newUsers, isLoading } = useNewUsers();
+
+  if (isLoading) return <NewUsersSkeleton />;
 
   return (
     <Box>
@@ -13,12 +16,7 @@ function UsersList({ user: activeUser }: { user: UserTypes | any }) {
       </Heading>
       <Box as='ul'>
         {newUsers?.map((user) => (
-          <User
-            key={user.userId}
-            user={user}
-            activeUser={activeUser}
-            isUserLoading={isLoading}
-          />
+          <User key={user.userId} user={user} activeUser={activeUser} />
         ))}
       </Box>
     </Box>

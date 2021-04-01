@@ -1,17 +1,25 @@
 import { Flex, Image, Text, useDisclosure, Button } from '@chakra-ui/react';
-import { UserTypes } from '../../types/types';
 import { useActiveUser } from '../../context/active-user';
 import FollowButton from '../shared/FollowButton';
 import EditProfileModal from './EditProfileModal';
+import UserProfileSkeleton from '../skeleton/UserProfileSkeleton';
+import { useUser } from '../../hooks/useUser';
 
-function UserProfile({ user }: { user: UserTypes }) {
+function UserProfile({ userId }: { userId: string }) {
+  const {
+    data: user,
+    isLoading: isProfileLoading,
+  }: { data: any; isLoading: boolean } = useUser(userId);
+
   const { activeUser } = useActiveUser();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { username, following, followers, pictureUrl, fullname } = user;
+  const isActiveUserProfile = user?.userId === activeUser?.userId;
 
-  const isActiveUserProfile = user.userId === activeUser.userId;
+  if (isProfileLoading) return <UserProfileSkeleton />;
+
+  const { username, following, followers, pictureUrl, fullname } = user;
 
   return (
     <Flex p='6' pos='relative'>
