@@ -3,7 +3,7 @@ import { useActiveUser } from '../../context/active-user';
 import FollowButton from '../shared/FollowButton';
 import EditProfileModal from './EditProfileModal';
 import UserProfileSkeleton from '../skeleton/UserProfileSkeleton';
-import { useUser } from '../../hooks/useUser';
+import useUser from '../../hooks/useUser';
 
 function UserProfile({ userId }: { userId: string }) {
   const {

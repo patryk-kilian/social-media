@@ -1,8 +1,14 @@
 import { Box, Image, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import ActiveUserSkeleton from '../skeleton/ActiveUserSkeleton';
+import { userTypes } from '../../types/types';
 
-function ActiveUser({ user, isLoading }: { user: any; isLoading: boolean }) {
+type ActiveUserTypes = {
+  user: userTypes;
+  isLoading: boolean;
+};
+
+function ActiveUser({ user, isLoading }: ActiveUserTypes) {
   if (isLoading) return <ActiveUserSkeleton />;
 
   const { username, pictureUrl } = user;

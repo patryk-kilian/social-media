@@ -1,10 +1,10 @@
 import { Box, Heading } from '@chakra-ui/react';
 import User from './User';
-import { useNewUsers } from '../../hooks/useUsers';
-import { UserTypes } from '../../types/types';
+import useNewUsers from '../../hooks/useNewUsers';
+import { userTypes } from '../../types/types';
 import NewUsersSkeleton from '../skeleton/NewUsersSkeleton';
 
-function UsersList({ activeUser }: { activeUser: UserTypes }) {
+function UsersList({ activeUser }: { activeUser: userTypes }) {
   const { data: newUsers, isLoading } = useNewUsers();
 
   if (isLoading) return <NewUsersSkeleton />;

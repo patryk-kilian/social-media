@@ -1,14 +1,13 @@
 import { useMutation } from 'react-query';
-import { firebase, FieldValue } from '../lib/firebase';
+import { db, FieldValue } from '../lib/firebase';
 import { queryClient } from '../App';
 
 const updateLoggedInUserFollowing = async (
   activeUserDocId: string,
   profileUserId: string,
-  isFollowingProfile: boolean
+  isFollowingProfile: string | undefined
 ) => {
-  return firebase
-    .firestore()
+  return db
     .collection('users')
     .doc(activeUserDocId)
     .update({
@@ -21,10 +20,9 @@ const updateLoggedInUserFollowing = async (
 const updateFollowedUserFollowers = (
   activeUserId: string,
   profileDocId: string,
-  isFollowingProfile: boolean
+  isFollowingProfile: string | undefined
 ) => {
-  return firebase
-    .firestore()
+  return db
     .collection('users')
     .doc(profileDocId)
     .update({
@@ -34,9 +32,17 @@ const updateFollowedUserFollowers = (
     });
 };
 
-export const useToggleFollow = () => {
+type toggleFollowDataTypes = {
+  activeUserId: string;
+  activeUserDocId: string;
+  profileUserId: string;
+  profileDocId: string;
+  isFollowingProfile: string | undefined;
+};
+
+function useToggleFollow() {
   return useMutation(
-    async (toggleFollowData: any) => {
+    async (toggleFollowData: toggleFollowDataTypes) => {
       const {
         activeUserId,
         activeUserDocId,
@@ -63,4 +69,6 @@ export const useToggleFollow = () => {
       },
     }
   );
-};
+}
+
+export default useToggleFollow;

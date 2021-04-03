@@ -16,3 +16,4 @@ export const firebase = Firebase.initializeApp(firebaseConfig)
 export const firebaseAuth = firebase.auth()
 export const {FieldValue} = Firebase.firestore
 export const db = firebase.firestore()
+export const storage = firebase.storage()

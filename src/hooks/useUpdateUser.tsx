@@ -3,11 +3,11 @@ import { db } from '../lib/firebase';
 import { queryClient } from '../App';
 import { useActiveUser } from '../context/active-user';
 
-export const useUpdateUser = () => {
+function useUpdateUser() {
   const { activeUser } = useActiveUser();
 
   return useMutation(
-    async (userNewData: any) => {
+    async (userNewData: { fullname: string; pictureUrl: string }) => {
       await db.collection('users').doc(activeUser.docId).update(userNewData);
     },
     {
@@ -16,4 +16,6 @@ export const useUpdateUser = () => {
       },
     }
   );
-};
+}
+
+export default useUpdateUser;

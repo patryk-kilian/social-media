@@ -1,16 +1,17 @@
-import * as React from 'react';
 import { ChakraProvider, CSSReset, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
+import { AuthProvider } from './context/auth-context';
+import { ActiveUserProvider } from './context/active-user';
+
 import SignIn from './pages/sign-in';
 import SignUp from './pages/sign-up';
 import Profile from './pages/profile';
 import Dashboard from './pages/dashboard';
 import Fonts from './components/Fonts';
-import { AuthProvider } from './context/auth-context';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { ActiveUserProvider } from './context/active-user';
 import NotFound from './pages/not-found';
 
 const theme = extendTheme({

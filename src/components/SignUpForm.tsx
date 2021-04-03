@@ -14,16 +14,16 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   nameValidate,
   passwordValidate,
   emailValidate,
 } from '../utils/form-validate';
-import { Link as RouterLink } from 'react-router-dom';
 import { SIGN_IN, DASHBOARD } from '../constants/routes';
 import { useAuth } from '../context/auth-context';
-import { useHistory } from 'react-router-dom';
-import { firebase } from '../lib/firebase';
+import { db } from '../lib/firebase';
 
 type FormData = {
   name: string;
@@ -56,7 +56,7 @@ function SignUpForm() {
         displayName: userData.name,
       });
 
-      await firebase.firestore().collection('users').add({
+      await db.collection('users').add({
         userId: createdUser.user.uid,
         username: userData.name.toLowerCase(),
         emailAdress: userData.email.toLowerCase(),

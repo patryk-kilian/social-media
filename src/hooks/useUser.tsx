@@ -1,10 +1,9 @@
 import { useQuery } from 'react-query';
-import { firebase } from '../lib/firebase';
+import { db } from '../lib/firebase';
 
-export const useUser = (userId: string) => {
+function useUser(userId: string) {
   return useQuery(['user', userId], async () => {
-    const result = await firebase
-      .firestore()
+    const result = await db
       .collection('users')
       .where('userId', '==', userId)
       .get();
@@ -19,4 +18,6 @@ export const useUser = (userId: string) => {
 
     return user;
   });
-};
+}
+
+export default useUser;

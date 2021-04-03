@@ -1,7 +1,9 @@
 import { useAuth } from '../context/auth-context';
-import { Box, Flex, Button } from '@chakra-ui/react';
+import { Box, Flex, Button, Link } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 import { SIGN_IN } from '../constants/routes';
+import { DASHBOARD } from '../constants/routes';
+import { Link as RouterLink } from 'react-router-dom';
 
 function Header() {
   const { logout } = useAuth();
@@ -34,7 +36,9 @@ function Header() {
         mx='auto'
         maxW='1200px'
       >
-        <p>Home</p>
+        <Link as={RouterLink} to={DASHBOARD}>
+          Home
+        </Link>
         <Button colorScheme='purple' size='sm' onClick={handleLogout}>
           Logout
         </Button>

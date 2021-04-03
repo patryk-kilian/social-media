@@ -1,4 +1,10 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import {
+  ReactNode,
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+} from 'react';
 import { firebaseAuth } from '../lib/firebase';
 
 const AuthContext = createContext<any>(null);
@@ -13,7 +19,7 @@ type User = {
   password: string;
 };
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [authUser, setAuthUser] = useState(
     JSON.parse(localStorage.getItem('authUser')!)
   );

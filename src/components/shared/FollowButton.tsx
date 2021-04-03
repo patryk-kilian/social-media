@@ -1,8 +1,15 @@
 import { Button } from '@chakra-ui/react';
 import useHover from '../../hooks/useHover';
-import { useToggleFollow } from '../../hooks/useToggleFollow';
+import useToggleFollow from '../../hooks/useToggleFollow';
+import { userTypes } from '../../types/types';
 
-function FollowButton(props: any) {
+type FollowButtonProps = {
+  activeUser: userTypes;
+  user: userTypes;
+  [x: string]: any;
+};
+
+function FollowButton(props: FollowButtonProps) {
   const { activeUser, user, ...otherProps } = props;
 
   const {
