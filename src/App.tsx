@@ -13,6 +13,7 @@ import Profile from './pages/profile';
 import Dashboard from './pages/dashboard';
 import Fonts from './components/Fonts';
 import NotFound from './pages/not-found';
+import Users from './pages/users';
 
 const theme = extendTheme({
   fonts: {
@@ -35,6 +36,7 @@ function App() {
                 <Route path={ROUTES.SIGN_IN} component={SignIn} />
                 <Route path={ROUTES.SIGN_UP} component={SignUp} />
                 <Route path={ROUTES.PROFILE} component={Profile} />
+                <Route path={ROUTES.USERS} component={Users} />
                 <Route path={ROUTES.DASHBOARD} component={Dashboard} exact />
                 <Route component={NotFound} />
               </Switch>
