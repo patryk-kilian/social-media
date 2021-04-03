@@ -1,27 +1,34 @@
-import { useState, useEffect, RefObject } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
-function useHover<T extends HTMLElement = HTMLElement>(
-  elementRef: RefObject<T>
-): boolean {
-  const [value, setValue] = useState<boolean>(false);
+function useHover<T extends HTMLElement>(): [
+  (node?: T | null) => void,
+  boolean
+] {
+  const [value, setValue] = useState(false);
 
-  const handleMouseOver = () => setValue(true);
-  const handleMouseOut = () => setValue(false);
+  const handleMouseOver = useCallback(() => setValue(true), []);
+  const handleMouseOut = useCallback(() => setValue(false), []);
 
-  useEffect(() => {
-    const node = elementRef?.current;
-    if (node) {
-      node.addEventListener('mouseover', handleMouseOver);
-      node.addEventListener('mouseout', handleMouseOut);
+  const ref = useRef<T>();
 
-      return () => {
-        node.removeEventListener('mouseover', handleMouseOver);
-        node.removeEventListener('mouseout', handleMouseOut);
-      };
-    }
-  }, [elementRef]);
+  const callbackRef = useCallback<(node?: null | T) => void>(
+    (node) => {
+      if (ref.current) {
+        ref.current.removeEventListener('mouseover', handleMouseOver);
+        ref.current.removeEventListener('mouseout', handleMouseOut);
+      }
 
-  return !!value;
+      ref.current = node || undefined;
+
+      if (ref.current) {
+        ref.current.addEventListener('mouseover', handleMouseOver);
+        ref.current.addEventListener('mouseout', handleMouseOut);
+      }
+    },
+    [handleMouseOver, handleMouseOut]
+  );
+
+  return [callbackRef, value];
 }
 
 export default useHover;
