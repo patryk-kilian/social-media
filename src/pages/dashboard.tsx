@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import { useAuth } from '../context/auth-context';
 import { SIGN_IN } from '../constants/routes';
 import { useHistory } from 'react-router-dom';
+import AddPost from '../components/AddPost';
 
 function Dashboard() {
   const { authUser } = useAuth();
@@ -14,7 +15,7 @@ function Dashboard() {
 
   return (
     <Layout>
-      <p>dashboard</p>
+      <AddPost />
     </Layout>
   );
 }
