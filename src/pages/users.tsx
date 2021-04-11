@@ -11,7 +11,7 @@ function Users() {
 
   useEffect(() => {
     if (!authUser) history.push(SIGN_IN);
-  }, [authUser]);
+  }, [authUser, history]);
 
   return (
     <Layout>

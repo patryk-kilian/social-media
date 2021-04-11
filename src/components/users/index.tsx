@@ -15,7 +15,7 @@ function AllUsers() {
       py='6'
     >
       {users?.map((user) => (
-        <Skeleton isLoaded={!isLoading}>
+        <Skeleton isLoaded={!isLoading} key={user.userId}>
           <User isLoading={isLoading} key={user.userId} user={user} />
         </Skeleton>
       ))}

@@ -65,7 +65,7 @@ function useToggleFollow() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('user');
+        queryClient.refetchQueries('user');
       },
     }
   );

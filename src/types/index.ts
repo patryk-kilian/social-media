@@ -9,3 +9,14 @@ export type userTypes = {
   pictureUrl?: string;
   fullname?: string;
 }
+
+export type postTypes = {
+  postId: string;
+  userId: string;
+  postText: string;
+  likes: [];
+  comments: [];
+  dateCreated: number;
+  userAvatar: string | undefined;
+  username: string
+}

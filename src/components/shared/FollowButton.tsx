@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react';
 import useHover from '../../hooks/useHover';
 import useToggleFollow from '../../hooks/useToggleFollow';
-import { userTypes } from '../../types/types';
+import { userTypes } from '../../types';
 
 type FollowButtonProps = {
   activeUser: userTypes;
@@ -19,7 +19,7 @@ function FollowButton(props: FollowButtonProps) {
 
   const [hoverRef, isHovered] = useHover<HTMLButtonElement>();
 
-  const isFollowingProfile = activeUser?.following.find(
+  const isFollowingProfile = activeUser?.following?.find(
     (userId: string) => userId === user.userId
   );
 

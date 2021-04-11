@@ -1,7 +1,7 @@
 import { Box, Heading, Button } from '@chakra-ui/react';
 import User from './User';
 import useNewUsers from '../../hooks/useNewUsers';
-import { userTypes } from '../../types/types';
+import { userTypes } from '../../types';
 import NewUsersSkeleton from '../skeleton/NewUsersSkeleton';
 import { Link as RouterLink } from 'react-router-dom';
 import { USERS } from '../../constants/routes';

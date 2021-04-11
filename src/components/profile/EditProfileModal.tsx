@@ -74,7 +74,7 @@ function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
         position: 'top',
       });
     }
-  }, [isUpdateSuccess]);
+  }, [isUpdateSuccess, onClose, toast, reset]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

@@ -1,7 +1,7 @@
 import { Box, Image, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import ActiveUserSkeleton from '../skeleton/ActiveUserSkeleton';
-import { userTypes } from '../../types/types';
+import { userTypes } from '../../types';
 
 type ActiveUserTypes = {
   user: userTypes;

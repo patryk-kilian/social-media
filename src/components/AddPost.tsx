@@ -6,28 +6,30 @@ import {
   SkeletonCircle,
   Textarea,
 } from '@chakra-ui/react';
-import { useActiveUser } from '../context/active-user';
 import { Link as RouterLink } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useForm } from 'react-hook-form';
 import useAddPost from '../hooks/useAddPost';
+import { userTypes, postTypes } from '../types';
 
 type FormData = {
   postText: string;
 };
 
-function AddPost() {
-  const { activeUser, isLoading } = useActiveUser();
-  const { register, handleSubmit, errors, reset } = useForm<FormData>();
+function AddPost({ user }: { user: userTypes }) {
+  const { register, handleSubmit, reset } = useForm<FormData>();
   const { mutate: addPost, isLoading: isAdding } = useAddPost();
 
   const handleAddPost = (data: FormData) => {
-    const postData = {
-      userId: activeUser.userId,
+    const postData: postTypes = {
+      postId: '',
+      userId: user.userId,
       postText: data.postText,
       likes: [],
       comments: [],
       dateCreated: Date.now(),
+      userAvatar: user.pictureUrl,
+      username: user.username,
     };
 
     addPost(postData);
@@ -35,14 +37,12 @@ function AddPost() {
     reset();
   };
 
-  if (isLoading) return <div>loading</div>;
-
   return (
     <Box maxW='600px' mx='auto' py='12'>
       <Flex padding='4'>
-        <RouterLink to={`/profile/${activeUser?.userId}`}>
+        <RouterLink to={`/profile/${user?.userId}`}>
           <Image
-            src={activeUser?.pictureUrl || '/images/user-placeholder.jpg'}
+            src={user?.pictureUrl || '/images/user-placeholder.jpg'}
             fallback={<SkeletonCircle size='80px' />}
             alt='user'
             boxSize='80px'

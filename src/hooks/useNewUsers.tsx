@@ -6,14 +6,17 @@ function useNewUsers() {
   const { authUser } = useAuth();
 
   return useQuery('new-users', async () => {
-    const result = await db.collection('users').limit(6).get();
+    const result = await db
+      .collection('users')
+      .orderBy('dateCreated', 'desc')
+      .limit(6)
+      .get();
     return result.docs
       .map((user: any) => ({
         ...user.data(),
         docId: user.id,
       }))
-      .filter((user) => authUser.uid !== user.userId)
-      .sort((user1, user2) => user2.dateCreated - user1.dateCreated);
+      .filter((user) => authUser.uid !== user.userId);
   });
 }
 
