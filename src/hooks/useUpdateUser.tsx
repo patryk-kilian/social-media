@@ -7,7 +7,7 @@ function useUpdateUser() {
   const { activeUser } = useActiveUser();
 
   return useMutation(
-    async (userNewData: { fullname: string; pictureUrl: string }) => {
+    async (userNewData: { fullname?: string; pictureUrl?: string }) => {
       await db.collection('users').doc(activeUser.docId).update(userNewData);
     },
     {

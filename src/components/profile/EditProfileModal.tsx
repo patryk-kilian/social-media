@@ -49,13 +49,19 @@ function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
     setPictureUploading(true);
 
     try {
-      await fileRef.put(pictureFile);
-      const pictureUrl = await fileRef.getDownloadURL();
+      if (pictureFile) {
+        await fileRef.put(pictureFile);
+        const pictureUrl = await fileRef.getDownloadURL();
 
-      updateUser({
-        pictureUrl,
-        fullname: data.fullname,
-      });
+        updateUser({
+          pictureUrl,
+          fullname: data.fullname ? data.fullname : activeUser.fullname,
+        });
+      } else {
+        updateUser({
+          fullname: data.fullname ? data.fullname : activeUser.fullname,
+        });
+      }
     } catch (err) {
       console.log(err);
     }

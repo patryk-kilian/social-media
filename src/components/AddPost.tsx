@@ -43,7 +43,7 @@ function AddPost({ user }: { user: userTypes }) {
         <RouterLink to={`/profile/${user?.userId}`}>
           <Image
             src={user?.pictureUrl || '/images/user-placeholder.jpg'}
-            fallback={<SkeletonCircle size='80px' />}
+            fallback={<SkeletonCircle size='80px' mr='4' />}
             alt='user'
             boxSize='80px'
             borderRadius='full'

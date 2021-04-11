@@ -1,4 +1,11 @@
-import { Flex, Image, Text, useDisclosure, Button } from '@chakra-ui/react';
+import {
+  Flex,
+  Image,
+  Text,
+  useDisclosure,
+  Button,
+  SkeletonCircle,
+} from '@chakra-ui/react';
 import { useActiveUser } from '../../context/active-user';
 import FollowButton from '../shared/FollowButton';
 import EditProfileModal from './EditProfileModal';
@@ -24,8 +31,8 @@ function UserProfile({ userId }: { userId: string }) {
   return (
     <Flex p='6' pos='relative'>
       <Image
-        src={pictureUrl}
-        fallbackSrc='/images/user-placeholder.jpg'
+        src={pictureUrl || '/images/user-placeholder.jpg'}
+        fallback={<SkeletonCircle size='150px' />}
         alt='user'
         boxSize='150px'
         borderRadius='full'

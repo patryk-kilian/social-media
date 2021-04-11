@@ -1,4 +1,4 @@
-import { Box, Image, Link } from '@chakra-ui/react';
+import { Box, Image, Link, SkeletonCircle } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import ActiveUserSkeleton from '../skeleton/ActiveUserSkeleton';
 import { userTypes } from '../../types';
@@ -16,8 +16,8 @@ function ActiveUser({ user, isLoading }: ActiveUserTypes) {
   return (
     <Box py='5' textAlign='center'>
       <Image
-        src={pictureUrl}
-        fallbackSrc='/images/user-placeholder.jpg'
+        src={pictureUrl || '/images/user-placeholder.jpg'}
+        fallback={<SkeletonCircle size='100px' mx='auto' />}
         alt='user'
         boxSize='100px'
         mx='auto'
