@@ -5,7 +5,7 @@ import Actions from './Actions';
 import Content from './Content';
 
 function Post({ post }: { post: postTypes }) {
-  const { userAvatar, postText, username, dateCreated } = post;
+  const { userAvatar, postText, username, dateCreated, likes, postId } = post;
 
   return (
     <Box as='article' p='2'>
@@ -17,7 +17,7 @@ function Post({ post }: { post: postTypes }) {
         />
 
         <Content postText={postText} />
-        <Actions />
+        <Actions postId={postId} likes={likes} />
       </Box>
     </Box>
   );
