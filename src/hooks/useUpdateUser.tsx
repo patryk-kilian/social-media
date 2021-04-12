@@ -9,6 +9,19 @@ function useUpdateUser() {
   return useMutation(
     async (userNewData: { fullname?: string; pictureUrl?: string }) => {
       await db.collection('users').doc(activeUser.docId).update(userNewData);
+
+      if (userNewData.pictureUrl) {
+        const postsToUpdate = await db
+          .collection('posts')
+          .where('userId', '==', activeUser.userId)
+          .get();
+
+        postsToUpdate.docs.forEach((post) => {
+          post.ref.update({
+            userAvatar: userNewData.pictureUrl,
+          });
+        });
+      }
     },
     {
       onSuccess: () => {

@@ -9,12 +9,13 @@ function Sidebar() {
   return (
     <Box
       px='6'
-      minH='100vh'
-      h='100%'
+      height='100vh'
       w='300px'
       bg='white'
       borderLeft='1px solid'
       borderLeftColor='purple.100'
+      position='sticky'
+      top='16'
     >
       <ActiveUser isLoading={isLoading} user={activeUser} />
       <UsersList activeUser={activeUser} />

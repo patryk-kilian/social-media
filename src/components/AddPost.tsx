@@ -28,7 +28,7 @@ function AddPost({ user }: { user: userTypes }) {
       likes: [],
       comments: [],
       dateCreated: Date.now(),
-      userAvatar: user.pictureUrl,
+      userAvatar: user.pictureUrl || '',
       username: user.username,
     };
 
