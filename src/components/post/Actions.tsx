@@ -4,6 +4,7 @@ import { FaHeart, FaRegHeart, FaComment, FaTrashAlt } from 'react-icons/fa';
 import { useActiveUser } from '../../context/active-user';
 import useToggleLike from '../../hooks/useToggleLike';
 import PostDeleteAlert from './PostDeleteAlert';
+import { Link as RouterLink } from 'react-router-dom';
 
 type PostActionsTypes = {
   likes: [];
@@ -18,7 +19,7 @@ function Actions({ likes, postId, authorId }: PostActionsTypes) {
 
   const cancelRef = useRef();
 
-  const isLiked = likes.find((userId) => userId === activeUser.userId);
+  const isLiked = likes?.find((userId) => userId === activeUser?.userId);
 
   const handlePostLike = () => {
     const toggleLikeData = {
@@ -32,7 +33,7 @@ function Actions({ likes, postId, authorId }: PostActionsTypes) {
 
   const onDeleteAlertClose = () => setDeleteAlertOpen(false);
 
-  const isActiveUserAuthor = activeUser.userId === authorId;
+  const isActiveUserAuthor = activeUser?.userId === authorId;
 
   return (
     <Flex p='2'>
@@ -49,17 +50,19 @@ function Actions({ likes, postId, authorId }: PostActionsTypes) {
         />
         <Text>{likes.length}</Text>
       </Flex>
-      <Flex alignItems='center' ml='2'>
-        <IconButton
-          isRound
-          aria-label='like post'
-          variant='ghost'
-          icon={<FaComment />}
-          colorScheme='purple'
-          size='md'
-        />
-        <Text>1</Text>
-      </Flex>
+      <RouterLink to={`/post/${postId}`}>
+        <Flex alignItems='center' ml='2'>
+          <IconButton
+            isRound
+            aria-label='like post'
+            variant='ghost'
+            icon={<FaComment />}
+            colorScheme='purple'
+            size='md'
+          />
+          <Text>1</Text>
+        </Flex>
+      </RouterLink>
       {isActiveUserAuthor && (
         <IconButton
           ml='auto'

@@ -14,6 +14,7 @@ import Dashboard from './pages/dashboard';
 import Fonts from './components/Fonts';
 import NotFound from './pages/not-found';
 import Users from './pages/users';
+import PostPage from './pages/post';
 
 const theme = extendTheme({
   fonts: {
@@ -37,6 +38,7 @@ function App() {
                 <Route path={ROUTES.SIGN_UP} component={SignUp} />
                 <Route path={ROUTES.PROFILE} component={Profile} />
                 <Route path={ROUTES.USERS} component={Users} />
+                <Route path={ROUTES.POST} component={PostPage} />
                 <Route path={ROUTES.DASHBOARD} component={Dashboard} exact />
                 <Route component={NotFound} />
               </Switch>

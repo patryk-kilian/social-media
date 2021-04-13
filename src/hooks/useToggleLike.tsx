@@ -26,6 +26,7 @@ function useToggleLike() {
     {
       onSuccess: () => {
         queryClient.refetchQueries('posts');
+        queryClient.refetchQueries('post');
       },
     }
   );

@@ -38,7 +38,7 @@ function AddPost({ user }: { user: userTypes }) {
   };
 
   return (
-    <Box maxW='600px' mx='auto' py='12'>
+    <Box maxW='600px' mx='auto' py='10'>
       <Flex padding='4'>
         <RouterLink to={`/profile/${user?.userId}`}>
           <Image
