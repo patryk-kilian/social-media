@@ -1,11 +1,22 @@
+import { useState, useRef } from 'react';
 import { Flex, IconButton, Text } from '@chakra-ui/react';
 import { FaHeart, FaRegHeart, FaComment, FaTrashAlt } from 'react-icons/fa';
 import { useActiveUser } from '../../context/active-user';
 import useToggleLike from '../../hooks/useToggleLike';
+import PostDeleteAlert from './PostDeleteAlert';
 
-function Actions({ likes, postId }: { likes: []; postId: string }) {
+type PostActionsTypes = {
+  likes: [];
+  postId: string;
+  authorId: string;
+};
+
+function Actions({ likes, postId, authorId }: PostActionsTypes) {
+  const [isDeleteAlertOpen, setDeleteAlertOpen] = useState(false);
   const { activeUser } = useActiveUser();
   const { mutate: toggleLike, isLoading } = useToggleLike();
+
+  const cancelRef = useRef();
 
   const isLiked = likes.find((userId) => userId === activeUser.userId);
 
@@ -18,6 +29,10 @@ function Actions({ likes, postId }: { likes: []; postId: string }) {
 
     toggleLike(toggleLikeData);
   };
+
+  const onDeleteAlertClose = () => setDeleteAlertOpen(false);
+
+  const isActiveUserAuthor = activeUser.userId === authorId;
 
   return (
     <Flex p='2'>
@@ -45,14 +60,23 @@ function Actions({ likes, postId }: { likes: []; postId: string }) {
         />
         <Text>1</Text>
       </Flex>
-      <IconButton
-        ml='auto'
-        isRound
-        aria-label='like post'
-        variant='ghost'
-        icon={<FaTrashAlt />}
-        colorScheme='red'
-        size='md'
+      {isActiveUserAuthor && (
+        <IconButton
+          ml='auto'
+          isRound
+          aria-label='like post'
+          variant='ghost'
+          icon={<FaTrashAlt />}
+          colorScheme='red'
+          size='md'
+          onClick={() => setDeleteAlertOpen(true)}
+        />
+      )}
+      <PostDeleteAlert
+        postId={postId}
+        isOpen={isDeleteAlertOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onDeleteAlertClose}
       />
     </Flex>
   );
