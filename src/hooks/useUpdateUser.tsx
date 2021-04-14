@@ -16,8 +16,19 @@ function useUpdateUser() {
           .where('userId', '==', activeUser.userId)
           .get();
 
+        const commentsToUpdate = await db
+          .collection('comments')
+          .where('userId', '==', activeUser.userId)
+          .get();
+
         postsToUpdate.docs.forEach((post) => {
           post.ref.update({
+            userAvatar: userNewData.pictureUrl,
+          });
+        });
+
+        commentsToUpdate.docs.forEach((comment) => {
+          comment.ref.update({
             userAvatar: userNewData.pictureUrl,
           });
         });

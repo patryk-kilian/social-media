@@ -4,8 +4,8 @@ import { queryClient } from '../App';
 
 function useDeleteComment() {
   return useMutation(
-    async (commentId: string) => {
-      await db.collection('comments').doc(commentId).delete();
+    async (docId: string) => {
+      await db.collection('comments').doc(docId).delete();
     },
     {
       onSuccess: () => {

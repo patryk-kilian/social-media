@@ -10,9 +10,10 @@ type PostActionsTypes = {
   likes: [];
   postId: string;
   authorId: string;
+  comments: [];
 };
 
-function Actions({ likes, postId, authorId }: PostActionsTypes) {
+function Actions({ likes, postId, authorId, comments }: PostActionsTypes) {
   const [isDeleteAlertOpen, setDeleteAlertOpen] = useState(false);
   const { activeUser } = useActiveUser();
   const { mutate: toggleLike, isLoading } = useToggleLike();
@@ -60,7 +61,7 @@ function Actions({ likes, postId, authorId }: PostActionsTypes) {
             colorScheme='purple'
             size='md'
           />
-          <Text>1</Text>
+          <Text>{comments.length}</Text>
         </Flex>
       </RouterLink>
       {isActiveUserAuthor && (

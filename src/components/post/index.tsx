@@ -13,6 +13,7 @@ function Post({ post }: { post: postTypes }) {
     likes,
     postId,
     userId,
+    comments,
   } = post;
 
   return (
@@ -26,7 +27,12 @@ function Post({ post }: { post: postTypes }) {
         />
 
         <Content postText={postText} />
-        <Actions postId={postId} likes={likes} authorId={userId} />
+        <Actions
+          comments={comments}
+          postId={postId}
+          likes={likes}
+          authorId={userId}
+        />
       </Box>
     </Box>
   );

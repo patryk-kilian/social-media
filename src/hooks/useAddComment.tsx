@@ -1,28 +1,24 @@
 import { useMutation } from 'react-query';
 import { db, FieldValue } from '../lib/firebase';
 import { queryClient } from '../App';
-
-type CommentTypes = {
-  commentText: string;
-  postId: string;
-  userId: string;
-};
+import { commentTypes } from '../types';
 
 function useAddComment() {
   return useMutation(
-    async (commentData: CommentTypes) => {
+    async (commentData: commentTypes) => {
       await db.collection('comments').add(commentData);
 
       await db
         .collection('posts')
         .doc(commentData.postId)
         .update({
-          comments: FieldValue.arrayUnion(commentData.userId),
+          comments: FieldValue.arrayUnion(commentData.commentId),
         });
     },
     {
       onSuccess: () => {
         queryClient.invalidateQueries('comments');
+        queryClient.invalidateQueries('post');
       },
     }
   );

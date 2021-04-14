@@ -11,6 +11,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useForm } from 'react-hook-form';
 import useAddComment from '../../hooks/useAddComment';
+import { v4 as uuidv4 } from 'uuid';
 
 type FormData = {
   commentText: string;
@@ -27,7 +28,7 @@ function AddComment({ user, postId }: { user: userTypes; postId: string }) {
       username: user.username,
       userAvatar: user.pictureUrl || '',
       dateCreated: Date.now(),
-      commentId: '',
+      commentId: uuidv4(),
       postId,
     };
 

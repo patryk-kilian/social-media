@@ -11,7 +11,7 @@ function useComments(postId: string) {
     const comments = result.docs
       .map((comment: any) => ({
         ...comment.data(),
-        commentId: comment.id,
+        docId: comment.id,
       }))
       .sort(
         (comment1, comment2) => comment2.dateCreated - comment1.dateCreated

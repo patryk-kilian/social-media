@@ -23,7 +23,7 @@ function Comment({ comment }: { comment: commentTypes }) {
     username,
     dateCreated,
     userId,
-    commentId,
+    docId,
   } = comment;
   const { activeUser } = useActiveUser();
   const cancelRef = useRef();
@@ -78,7 +78,7 @@ function Comment({ comment }: { comment: commentTypes }) {
         </Box>
       </Flex>
       <CommentDeleteAlert
-        commentId={commentId}
+        docId={docId}
         isOpen={isDeleteAlertOpen}
         leastDestructiveRef={cancelRef}
         onClose={onDeleteAlertClose}

@@ -29,4 +29,5 @@ export type commentTypes = {
   dateCreated: number;
   commentId: string;
   postId: string;
+  docId?: string;
 }
