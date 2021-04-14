@@ -54,7 +54,7 @@ function Actions({ likes, postId, authorId }: PostActionsTypes) {
         <Flex alignItems='center' ml='2'>
           <IconButton
             isRound
-            aria-label='like post'
+            aria-label='comment post'
             variant='ghost'
             icon={<FaComment />}
             colorScheme='purple'
@@ -67,7 +67,7 @@ function Actions({ likes, postId, authorId }: PostActionsTypes) {
         <IconButton
           ml='auto'
           isRound
-          aria-label='like post'
+          aria-label='delete post'
           variant='ghost'
           icon={<FaTrashAlt />}
           colorScheme='red'

@@ -8,11 +8,11 @@ import {
   AlertDialogOverlay,
   Button,
 } from '@chakra-ui/react';
-import useDeletePost from '../../hooks/useDeletePost';
+import useDeleteComment from '../../hooks/useDeleteComment';
 
-function PostDeleteAlert(props: any) {
-  const { postId, ...otherProps } = props;
-  const { mutate: deletePost, isLoading, isSuccess } = useDeletePost();
+function CommentDeleteAlert(props: any) {
+  const { commentId, ...otherProps } = props;
+  const { mutate: deleteComment, isLoading, isSuccess } = useDeleteComment();
 
   useEffect(() => {
     if (isSuccess) {
@@ -25,11 +25,11 @@ function PostDeleteAlert(props: any) {
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-            Delete Post
+            Delete Comment
           </AlertDialogHeader>
 
           <AlertDialogBody>
-            Are you sure you want do delete this post?
+            Are you sure you want do delete this comment?
           </AlertDialogBody>
 
           <AlertDialogFooter>
@@ -39,7 +39,7 @@ function PostDeleteAlert(props: any) {
             <Button
               isLoading={isLoading ? true : false}
               colorScheme='red'
-              onClick={() => deletePost(postId)}
+              onClick={() => deleteComment(commentId)}
               ml={3}
             >
               Delete
@@ -51,4 +51,4 @@ function PostDeleteAlert(props: any) {
   );
 }
 
-export default PostDeleteAlert;
+export default CommentDeleteAlert;

@@ -1,13 +1,20 @@
 import { Flex, Box, SkeletonCircle, Image, Text } from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
+import { Link as RouterLink } from 'react-router-dom';
 
 type PostHeaderTypes = {
   userAvatar: string | undefined;
   dateCreated: number;
   username: string;
+  userId: string;
 };
 
-function Header({ userAvatar, dateCreated, username }: PostHeaderTypes) {
+function Header({
+  userAvatar,
+  dateCreated,
+  username,
+  userId,
+}: PostHeaderTypes) {
   return (
     <Flex
       as='header'
@@ -27,7 +34,9 @@ function Header({ userAvatar, dateCreated, username }: PostHeaderTypes) {
         mr='4'
       />
       <Box>
-        <Text>{username}</Text>
+        <Text as={RouterLink} to={`/profile/${userId}`}>
+          {username}
+        </Text>
         <Text fontSize='sm' color='gray.500'>
           {formatDistance(dateCreated, Date.now(), { addSuffix: true })}
         </Text>

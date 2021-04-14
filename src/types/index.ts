@@ -20,3 +20,13 @@ export type postTypes = {
   userAvatar: string | undefined;
   username: string
 }
+
+export type commentTypes = {
+  userId: string;
+  commentText: string;
+  username: string;
+    userAvatar: string | undefined;
+  dateCreated: number;
+  commentId: string;
+  postId: string;
+}
