@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Box,
   Flex,
@@ -5,6 +6,8 @@ import {
   Button,
   SkeletonCircle,
   Textarea,
+  CircularProgress,
+  CircularProgressLabel,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -18,8 +21,10 @@ type FormData = {
 };
 
 function AddPost({ user }: { user: userTypes }) {
+  const [textInputLength, setTextInputLength] = useState(0);
   const { register, handleSubmit, reset } = useForm<FormData>();
   const { mutate: addPost, isLoading: isAdding } = useAddPost();
+  const maxTextInputLength = 280;
 
   const handleAddPost = (data: FormData) => {
     const postData: postTypes = {
@@ -37,7 +42,13 @@ function AddPost({ user }: { user: userTypes }) {
     addPost(postData);
 
     reset();
+    setTextInputLength(0);
   };
+
+  const onTextInputChange = (e: any) =>
+    setTextInputLength(e.target.value.length);
+
+  console.log(textInputLength);
 
   return (
     <Box maxW='600px' mx='auto' py='10'>
@@ -57,6 +68,7 @@ function AddPost({ user }: { user: userTypes }) {
           <form onSubmit={handleSubmit(handleAddPost)}>
             <Box>
               <Textarea
+                onChange={onTextInputChange}
                 name='postText'
                 size='lg'
                 variant='flushed'
@@ -70,9 +82,30 @@ function AddPost({ user }: { user: userTypes }) {
                 ref={register({ required: true })}
               />
             </Box>
-            <Flex pt='2'>
+            <Flex pt='2' alignItems='center'>
+              <CircularProgress
+                size='40px'
+                color={
+                  textInputLength > maxTextInputLength
+                    ? 'red.500'
+                    : maxTextInputLength - textInputLength <= 20
+                    ? 'orange.500'
+                    : 'purple.500'
+                }
+                value={textInputLength}
+                max={maxTextInputLength}
+              >
+                <CircularProgressLabel>
+                  {maxTextInputLength - textInputLength <= 20
+                    ? maxTextInputLength - textInputLength
+                    : null}
+                </CircularProgressLabel>
+              </CircularProgress>
               <Button
                 isLoading={isAdding ? true : false}
+                isDisabled={
+                  textInputLength >= maxTextInputLength ? true : false
+                }
                 type='submit'
                 colorScheme='purple'
                 size='md'

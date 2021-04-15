@@ -9,6 +9,7 @@ import {
 import EditProfileModal from './EditProfileModal';
 import FollowButton from '../shared/FollowButton';
 import { userTypes } from '../../types';
+import { format } from 'date-fns';
 
 function Header({
   user,
@@ -18,7 +19,15 @@ function Header({
   activeUser: userTypes;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { username, following, followers, pictureUrl, fullname, posts } = user;
+  const {
+    username,
+    following,
+    followers,
+    pictureUrl,
+    fullname,
+    posts,
+    dateCreated,
+  } = user;
 
   const isActiveUserProfile = user?.userId === activeUser?.userId;
 
@@ -62,7 +71,9 @@ function Header({
           user={user}
         />
       )}
-
+      <Text color='gray.700' fontSize='lg' pos='absolute' bottom='10' right='6'>
+        Joined: {format(dateCreated, 'MMMM YYY')}
+      </Text>
       <EditProfileModal isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
