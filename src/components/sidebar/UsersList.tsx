@@ -27,6 +27,7 @@ function UsersList({ activeUser }: { activeUser: userTypes }) {
         as={RouterLink}
         to={USERS}
         mt='4'
+        size='sm'
       >
         ALL USERS
       </Button>

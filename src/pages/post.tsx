@@ -10,6 +10,7 @@ import AddComment from '../components/post/AddComment';
 import usePost from '../hooks/usePost';
 import { useActiveUser } from '../context/active-user';
 import Comments from '../components/post/Comments';
+import PostSkeleton from '../components/skeleton/PostSkeleton';
 
 function PostPage() {
   const { postid }: { postid: string } = useParams();
@@ -23,12 +24,10 @@ function PostPage() {
     if (!authUser) history.push(SIGN_IN);
   }, [authUser, history]);
 
-  if (isLoading) return <div>loading...</div>;
-
   return (
     <Layout>
       <Box maxW='600px' mx='auto' px='4' py='12'>
-        <Post post={post} />
+        {isLoading ? <PostSkeleton /> : <Post post={post} />}
         <AddComment user={activeUser} postId={postid} />
         <Comments postId={postid} />
       </Box>

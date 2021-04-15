@@ -23,7 +23,7 @@ function User({ user, activeUser }: UserProps) {
       <Link as={RouterLink} to={`/profile/${user.userId}`}>
         {user.username}
       </Link>
-      <FollowButton ml='auto' size='sm' activeUser={activeUser} user={user} />
+      <FollowButton ml='auto' size='xs' activeUser={activeUser} user={user} />
     </Flex>
   );
 }

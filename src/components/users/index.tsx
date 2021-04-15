@@ -1,9 +1,12 @@
 import useAllUsers from '../../hooks/useAllUsers';
 import User from './User';
-import { SimpleGrid, Skeleton } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
+import UsersSkeleton from '../skeleton/UsersSkeleton';
 
 function AllUsers() {
   const { data: users, isLoading } = useAllUsers();
+
+  if (isLoading) return <UsersSkeleton />;
 
   return (
     <SimpleGrid
@@ -15,9 +18,7 @@ function AllUsers() {
       py='6'
     >
       {users?.map((user) => (
-        <Skeleton isLoaded={!isLoading} key={user.userId}>
-          <User isLoading={isLoading} key={user.userId} user={user} />
-        </Skeleton>
+        <User isLoading={isLoading} key={user.userId} user={user} />
       ))}
     </SimpleGrid>
   );

@@ -5,7 +5,6 @@ import UserProfile from '../components/profile';
 import { useAuth } from '../context/auth-context';
 import { SIGN_IN } from '../constants/routes';
 import { useHistory } from 'react-router-dom';
-import UserPosts from '../components/profile/UserPosts';
 
 function Profile() {
   const { uid }: { uid: string } = useParams();
@@ -20,7 +19,6 @@ function Profile() {
   return (
     <Layout>
       <UserProfile userId={uid} />
-      <UserPosts userId={uid} />
     </Layout>
   );
 }
