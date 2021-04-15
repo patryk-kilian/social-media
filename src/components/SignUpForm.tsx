@@ -62,6 +62,7 @@ function SignUpForm() {
         emailAdress: userData.email.toLowerCase(),
         following: [],
         followers: [],
+        posts: [],
         dateCreated: Date.now(),
       });
 

@@ -10,7 +10,7 @@ function useUserPosts(userId: string) {
 
     const userPosts = result.docs.map((post: any) => ({
       ...post.data(),
-      postId: post.id,
+      docId: post.id,
     }));
 
     const posts = userPosts.sort(

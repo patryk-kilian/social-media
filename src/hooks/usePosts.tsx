@@ -6,7 +6,7 @@ function usePosts(userId: string, following: any) {
     let followingPostsResult: any = [];
     let followingPosts: any = [];
 
-    if (following.length > 0) {
+    if (following && following.length > 0) {
       followingPostsResult = await db
         .collection('posts')
         .where('userId', 'in', following)
@@ -14,7 +14,7 @@ function usePosts(userId: string, following: any) {
 
       followingPosts = followingPostsResult.docs.map((post: any) => ({
         ...post.data(),
-        postId: post.id,
+        docId: post.id,
       }));
     }
 
@@ -25,7 +25,7 @@ function usePosts(userId: string, following: any) {
 
     const myPosts = myPostsResult.docs.map((post: any) => ({
       ...post.data(),
-      postId: post.id,
+      docId: post.id,
     }));
 
     const posts = [...followingPosts, ...myPosts].sort(

@@ -11,9 +11,10 @@ function Post({ post }: { post: postTypes }) {
     username,
     dateCreated,
     likes,
-    postId,
     userId,
     comments,
+    docId,
+    postId,
   } = post;
 
   return (
@@ -28,8 +29,9 @@ function Post({ post }: { post: postTypes }) {
 
         <Content postText={postText} />
         <Actions
-          comments={comments}
           postId={postId}
+          comments={comments}
+          postDocId={docId}
           likes={likes}
           authorId={userId}
         />

@@ -28,7 +28,7 @@ function PostPage() {
     <Layout>
       <Box maxW='600px' mx='auto' px='4' py='12'>
         {isLoading ? <PostSkeleton /> : <Post post={post} />}
-        <AddComment user={activeUser} postId={postid} />
+        <AddComment user={activeUser} postDocId={postid} />
         <Comments postId={postid} />
       </Box>
     </Layout>

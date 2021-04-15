@@ -7,9 +7,8 @@ function usePost(postid: string) {
 
     const post = {
       ...result.data(),
-      postId: result.id,
+      docId: result.id,
     };
-
     return post;
   });
 }

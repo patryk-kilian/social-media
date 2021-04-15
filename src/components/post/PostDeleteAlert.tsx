@@ -11,7 +11,7 @@ import {
 import useDeletePost from '../../hooks/useDeletePost';
 
 function PostDeleteAlert(props: any) {
-  const { postId, ...otherProps } = props;
+  const { postDocId, userDocId, postId, ...otherProps } = props;
   const { mutate: deletePost, isLoading, isSuccess } = useDeletePost();
 
   useEffect(() => {
@@ -39,7 +39,9 @@ function PostDeleteAlert(props: any) {
             <Button
               isLoading={isLoading ? true : false}
               colorScheme='red'
-              onClick={() => deletePost(postId)}
+              onClick={() =>
+                deletePost({ docId: postDocId, userDocId, postId })
+              }
               ml={3}
             >
               Delete

@@ -4,18 +4,18 @@ import { queryClient } from '../App';
 
 type toggleLikeTypes = {
   isLiked: string | undefined;
-  postId: string;
+  postDocId: string | undefined;
   userId: string;
 };
 
 function useToggleLike() {
   return useMutation(
     async (toggleLikeData: toggleLikeTypes) => {
-      const { isLiked, postId, userId } = toggleLikeData;
+      const { isLiked, postDocId, userId } = toggleLikeData;
 
       await db
         .collection('posts')
-        .doc(postId)
+        .doc(postDocId)
         .update({
           likes: isLiked
             ? FieldValue.arrayRemove(userId)

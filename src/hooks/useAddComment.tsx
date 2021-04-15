@@ -10,7 +10,7 @@ function useAddComment() {
 
       await db
         .collection('posts')
-        .doc(commentData.postId)
+        .doc(commentData.postDocId)
         .update({
           comments: FieldValue.arrayUnion(commentData.commentId),
         });

@@ -11,6 +11,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { useForm } from 'react-hook-form';
 import useAddPost from '../hooks/useAddPost';
 import { userTypes, postTypes } from '../types';
+import { v4 as uuidv4 } from 'uuid';
 
 type FormData = {
   postText: string;
@@ -22,8 +23,9 @@ function AddPost({ user }: { user: userTypes }) {
 
   const handleAddPost = (data: FormData) => {
     const postData: postTypes = {
-      postId: '',
+      postId: uuidv4(),
       userId: user.userId,
+      userDocId: user.docId,
       postText: data.postText,
       likes: [],
       comments: [],

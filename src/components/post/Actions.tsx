@@ -8,12 +8,19 @@ import { Link as RouterLink } from 'react-router-dom';
 
 type PostActionsTypes = {
   likes: [];
+  postDocId: string | undefined;
   postId: string;
   authorId: string;
   comments: [];
 };
 
-function Actions({ likes, postId, authorId, comments }: PostActionsTypes) {
+function Actions({
+  likes,
+  postDocId,
+  postId,
+  authorId,
+  comments,
+}: PostActionsTypes) {
   const [isDeleteAlertOpen, setDeleteAlertOpen] = useState(false);
   const { activeUser } = useActiveUser();
   const { mutate: toggleLike, isLoading } = useToggleLike();
@@ -26,7 +33,7 @@ function Actions({ likes, postId, authorId, comments }: PostActionsTypes) {
     const toggleLikeData = {
       userId: activeUser.userId,
       isLiked,
-      postId,
+      postDocId,
     };
 
     toggleLike(toggleLikeData);
@@ -51,7 +58,7 @@ function Actions({ likes, postId, authorId, comments }: PostActionsTypes) {
         />
         <Text>{likes.length}</Text>
       </Flex>
-      <RouterLink to={`/post/${postId}`}>
+      <RouterLink to={`/post/${postDocId}`}>
         <Flex alignItems='center' ml='2'>
           <IconButton
             isRound
@@ -77,7 +84,9 @@ function Actions({ likes, postId, authorId, comments }: PostActionsTypes) {
         />
       )}
       <PostDeleteAlert
+        userDocId={activeUser?.docId}
         postId={postId}
+        postDocId={postDocId}
         isOpen={isDeleteAlertOpen}
         leastDestructiveRef={cancelRef}
         onClose={onDeleteAlertClose}

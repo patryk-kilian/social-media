@@ -5,7 +5,7 @@ function useComments(postId: string) {
   return useQuery(['comments', postId], async () => {
     const result = await db
       .collection('comments')
-      .where('postId', '==', postId)
+      .where('postDocId', '==', postId)
       .get();
 
     const comments = result.docs

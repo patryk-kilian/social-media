@@ -18,7 +18,7 @@ function Header({
   activeUser: userTypes;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { username, following, followers, pictureUrl, fullname } = user;
+  const { username, following, followers, pictureUrl, fullname, posts } = user;
 
   const isActiveUserProfile = user?.userId === activeUser?.userId;
 
@@ -35,7 +35,7 @@ function Header({
       <Flex direction='column' maxW='450px' w='full' ml='4'>
         <Text fontSize='2xl'>{username}</Text>
         <Flex justify='space-between' my='4'>
-          <Text fontSize='xl'>posts:&nbsp;5</Text>
+          <Text fontSize='xl'>posts:&nbsp;{posts.length}</Text>
           <Text fontSize='xl'>followers:&nbsp;{followers?.length}</Text>
           <Text fontSize='xl'>following:&nbsp;{following?.length}</Text>
         </Flex>

@@ -3,6 +3,7 @@ export type userTypes = {
   emailAdress: string;
   followers: string[];
   following: string[];
+  posts: string[];
   userId: string;
   username: string;
   docId: string;
@@ -13,6 +14,8 @@ export type userTypes = {
 export type postTypes = {
   postId: string;
   userId: string;
+  userDocId: string;
+  docId?: string;
   postText: string;
   likes: [];
   comments: [];
@@ -28,6 +31,7 @@ export type commentTypes = {
     userAvatar: string | undefined;
   dateCreated: number;
   commentId: string;
-  postId: string;
+  postId?: string;
   docId?: string;
+  postDocId?: string;
 }

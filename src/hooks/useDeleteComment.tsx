@@ -1,15 +1,27 @@
 import { useMutation } from 'react-query';
-import { db } from '../lib/firebase';
+import { db, FieldValue } from '../lib/firebase';
 import { queryClient } from '../App';
 
 function useDeleteComment() {
   return useMutation(
-    async (docId: string) => {
-      await db.collection('comments').doc(docId).delete();
+    async (deleteCommentData: {
+      docId: string;
+      postDocId: string;
+      commentId: string;
+    }) => {
+      await db.collection('comments').doc(deleteCommentData.docId).delete();
+
+      await db
+        .collection('posts')
+        .doc(deleteCommentData.postDocId)
+        .update({
+          comments: FieldValue.arrayRemove(deleteCommentData.commentId),
+        });
     },
     {
       onSuccess: () => {
         queryClient.invalidateQueries('comments');
+        queryClient.invalidateQueries('post');
       },
     }
   );

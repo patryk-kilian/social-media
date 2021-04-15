@@ -11,7 +11,7 @@ import {
 import useDeleteComment from '../../hooks/useDeleteComment';
 
 function CommentDeleteAlert(props: any) {
-  const { docId, ...otherProps } = props;
+  const { docId, postDocId, commentId, ...otherProps } = props;
   const { mutate: deleteComment, isLoading, isSuccess } = useDeleteComment();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function CommentDeleteAlert(props: any) {
             <Button
               isLoading={isLoading ? true : false}
               colorScheme='red'
-              onClick={() => deleteComment(docId)}
+              onClick={() => deleteComment({ docId, postDocId, commentId })}
               ml={3}
             >
               Delete

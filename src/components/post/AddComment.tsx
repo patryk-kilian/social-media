@@ -17,7 +17,13 @@ type FormData = {
   commentText: string;
 };
 
-function AddComment({ user, postId }: { user: userTypes; postId: string }) {
+function AddComment({
+  user,
+  postDocId,
+}: {
+  user: userTypes;
+  postDocId: string;
+}) {
   const { register, handleSubmit, reset } = useForm<FormData>();
   const { mutate: addComment, isLoading: isAdding } = useAddComment();
 
@@ -29,7 +35,7 @@ function AddComment({ user, postId }: { user: userTypes; postId: string }) {
       userAvatar: user.pictureUrl || '',
       dateCreated: Date.now(),
       commentId: uuidv4(),
-      postId,
+      postDocId,
     };
 
     addComment(commentData);
