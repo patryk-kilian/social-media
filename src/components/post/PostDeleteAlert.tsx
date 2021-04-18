@@ -9,16 +9,23 @@ import {
   Button,
 } from '@chakra-ui/react';
 import useDeletePost from '../../hooks/useDeletePost';
+import { useLocation, useHistory } from 'react-router-dom';
 
 function PostDeleteAlert(props: any) {
   const { postDocId, userDocId, postId, ...otherProps } = props;
   const { mutate: deletePost, isLoading, isSuccess } = useDeletePost();
+  const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     if (isSuccess) {
       props.onClose();
+
+      if (location.pathname.includes('post')) {
+        history.push('/');
+      }
     }
-  }, [isSuccess, props]);
+  }, [props]);
 
   return (
     <AlertDialog {...otherProps}>

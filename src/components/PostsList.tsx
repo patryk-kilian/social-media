@@ -18,7 +18,7 @@ function PostsList({ user }: { user: userTypes }) {
   if (isLoading) return <PostsListSkeleton />;
 
   return (
-    <Box maxW='600px' mx='auto' px='4'>
+    <Box maxW='600px' mx='auto' px={['2', '4']}>
       {posts?.length === 0 ? (
         <Text textAlign='center' fontSize='2xl'>
           Follow some

@@ -11,19 +11,16 @@ import {
   Heading,
   Text,
   Link,
-  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 import {
   nameValidate,
   passwordValidate,
   emailValidate,
 } from '../utils/form-validate';
-import { SIGN_IN, DASHBOARD } from '../constants/routes';
-import { useAuth } from '../context/auth-context';
-import { db } from '../lib/firebase';
+import { SIGN_IN } from '../constants/routes';
+import useSignUp from '../hooks/useSignUp';
 
 type FormData = {
   name: string;
@@ -33,11 +30,8 @@ type FormData = {
 
 function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setLoading] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm<FormData>();
-  const { signup } = useAuth();
-  const history = useHistory();
-  const toast = useToast();
+  const { signUp, isLoading } = useSignUp();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -48,46 +42,7 @@ function SignUpForm() {
       password: data.password,
     };
 
-    try {
-      setLoading(true);
-      const createdUser = await signup(userData);
-
-      await createdUser.user.updateProfile({
-        displayName: userData.name,
-      });
-
-      await db.collection('users').add({
-        userId: createdUser.user.uid,
-        username: userData.name.toLowerCase(),
-        emailAdress: userData.email.toLowerCase(),
-        following: [],
-        followers: [],
-        posts: [],
-        dateCreated: Date.now(),
-      });
-
-      toast({
-        title: 'Account created',
-        description: 'You are logged in',
-        status: 'success',
-        isClosable: true,
-        position: 'top',
-      });
-
-      setLoading(false);
-
-      history.push(DASHBOARD);
-    } catch (error) {
-      toast({
-        title: 'Signing Up failed',
-        description: error.message,
-        status: 'error',
-        isClosable: true,
-        position: 'top',
-      });
-
-      setLoading(false);
-    }
+    await signUp(userData);
 
     reset();
   };

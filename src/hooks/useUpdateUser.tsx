@@ -37,6 +37,7 @@ function useUpdateUser() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('user');
+        queryClient.invalidateQueries('posts');
       },
     }
   );

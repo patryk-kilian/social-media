@@ -12,8 +12,8 @@ function AllUsers() {
     <SimpleGrid
       listStyleType='none'
       as='ul'
-      columns={4}
-      spacing={3}
+      columns={[2, 3, 4]}
+      spacing={[2, 3]}
       px='10px'
       py='6'
     >

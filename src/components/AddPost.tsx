@@ -48,17 +48,15 @@ function AddPost({ user }: { user: userTypes }) {
   const onTextInputChange = (e: any) =>
     setTextInputLength(e.target.value.length);
 
-  console.log(textInputLength);
-
   return (
-    <Box maxW='600px' mx='auto' py='10'>
+    <Box maxW='600px' mx='auto' py={['6', '10']}>
       <Flex padding='4'>
         <RouterLink to={`/profile/${user?.userId}`}>
           <Image
             src={user?.pictureUrl || '/images/user-placeholder.jpg'}
             fallback={<SkeletonCircle size='80px' mr='4' />}
             alt='user'
-            boxSize='80px'
+            boxSize={['50px', '80px']}
             borderRadius='full'
             objectFit='cover'
             mr='4'
@@ -83,24 +81,26 @@ function AddPost({ user }: { user: userTypes }) {
               />
             </Box>
             <Flex pt='2' alignItems='center'>
-              <CircularProgress
-                size='40px'
-                color={
-                  textInputLength > maxTextInputLength
-                    ? 'red.500'
-                    : maxTextInputLength - textInputLength <= 20
-                    ? 'orange.500'
-                    : 'purple.500'
-                }
-                value={textInputLength}
-                max={maxTextInputLength}
-              >
-                <CircularProgressLabel>
-                  {maxTextInputLength - textInputLength <= 20
-                    ? maxTextInputLength - textInputLength
-                    : null}
-                </CircularProgressLabel>
-              </CircularProgress>
+              {textInputLength > 0 && (
+                <CircularProgress
+                  size='40px'
+                  color={
+                    textInputLength > maxTextInputLength
+                      ? 'red.500'
+                      : maxTextInputLength - textInputLength <= 20
+                      ? 'orange.500'
+                      : 'purple.500'
+                  }
+                  value={textInputLength}
+                  max={maxTextInputLength}
+                >
+                  <CircularProgressLabel>
+                    {maxTextInputLength - textInputLength <= 20
+                      ? maxTextInputLength - textInputLength
+                      : null}
+                  </CircularProgressLabel>
+                </CircularProgress>
+              )}
               <Button
                 isLoading={isAdding ? true : false}
                 isDisabled={

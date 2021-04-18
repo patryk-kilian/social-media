@@ -3,20 +3,23 @@ import { db } from '../lib/firebase';
 
 function useUser(userId: string) {
   return useQuery(['user', userId], async () => {
-    const result = await db
-      .collection('users')
-      .where('userId', '==', userId)
-      .get();
+    if (userId) {
+      const result = await db
+        .collection('users')
+        .where('userId', '==', userId)
+        .get();
 
-    const user = result.docs.reduce(
-      (acc, item) => ({
-        ...item.data(),
-        docId: item.id,
-      }),
-      {}
-    );
+      const user = result.docs.reduce(
+        (acc, item) => ({
+          ...item.data(),
+          docId: item.id,
+        }),
+        {}
+      );
+      return user;
+    }
 
-    return user;
+    return null;
   });
 }
 

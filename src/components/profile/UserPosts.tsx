@@ -8,11 +8,11 @@ function UserPosts({ userId }: { userId: string }) {
   const { data: posts, isLoading } = usePosts(userId);
 
   return (
-    <Box px='10'>
+    <Box px={['2', '2', '10']}>
       <Heading
         size='lg'
         as='h3'
-        py='6'
+        py={['2', '4', '6']}
         borderBottom='2px solid'
         borderColor='purple.200'
       >
@@ -25,7 +25,7 @@ function UserPosts({ userId }: { userId: string }) {
       ) : isLoading ? (
         <PostsListSkeleton />
       ) : (
-        <Box maxW='600px' mx='auto' px='4' pt='6'>
+        <Box maxW='600px' mx='auto' px={['0', '4']} pt='6'>
           {posts?.map((post: postTypes) => (
             <Post key={post.postId} post={post} />
           ))}

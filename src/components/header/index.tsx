@@ -1,13 +1,20 @@
-import { useAuth } from '../context/auth-context';
+import { useState } from 'react';
+import { useAuth } from '../../context/auth-context';
 import { Box, Flex, Button, Link } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
-import { SIGN_IN } from '../constants/routes';
-import { DASHBOARD } from '../constants/routes';
+import { SIGN_IN } from '../../constants/routes';
+import { DASHBOARD } from '../../constants/routes';
 import { Link as RouterLink } from 'react-router-dom';
+import MenuToggle from './MenuToggle';
+import MobileMenu from './MobileMenu';
 
 function Header() {
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const { logout } = useAuth();
   const history = useHistory();
+
+  const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
 
   const handleLogout = () => {
     logout();
@@ -28,21 +35,16 @@ function Header() {
       zIndex='3'
       bg='white'
     >
-      <Flex
-        px='4'
-        height='100%'
-        align='center'
-        justify='space-between'
-        mx='auto'
-        maxW='1200px'
-      >
+      <Flex px='4' height='100%' align='center' mx='auto' maxW='1200px'>
         <Link as={RouterLink} to={DASHBOARD}>
           Home
         </Link>
-        <Button colorScheme='purple' size='sm' onClick={handleLogout}>
+        <Button ml='auto' colorScheme='purple' size='sm' onClick={handleLogout}>
           Logout
         </Button>
+        <MenuToggle toggle={toggleMobileMenu} isOpen={isMobileMenuOpen} />
       </Flex>
+      <MobileMenu isOpen={isMobileMenuOpen} />
     </Box>
   );
 }

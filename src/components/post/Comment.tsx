@@ -32,10 +32,10 @@ function Comment({ comment }: { comment: commentTypes }) {
 
   const onDeleteAlertClose = () => setDeleteAlertOpen(false);
 
-  const isActiveUserAuthot = activeUser?.userId === userId;
+  const isActiveUserAuthor = activeUser?.userId === userId;
 
   return (
-    <Box px='4' py='2'>
+    <Box px='4' py='2' maxW='600px' mx='auto'>
       <Flex pb='2'>
         <Image
           src={userAvatar || '/images/user-placeholder.jpg'}
@@ -61,7 +61,7 @@ function Comment({ comment }: { comment: commentTypes }) {
                 {formatDistance(dateCreated, Date.now(), { addSuffix: true })}
               </Text>
             </Box>
-            {isActiveUserAuthot && (
+            {isActiveUserAuthor && (
               <IconButton
                 ml='auto'
                 isRound
@@ -75,7 +75,7 @@ function Comment({ comment }: { comment: commentTypes }) {
             )}
           </Flex>
           <Box pt='2' fontSize='sm'>
-            <Text>{commentText}</Text>
+            <Text wordBreak='break-word'>{commentText}</Text>
           </Box>
         </Box>
       </Flex>

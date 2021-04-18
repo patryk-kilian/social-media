@@ -9,7 +9,7 @@ function User({ user }: { isLoading: boolean; user: userTypes }) {
       bg='gray.100'
       shadow='sm'
       rounded='md'
-      h='150px'
+      h={['120px', '150px']}
       textAlign='center'
       p='4'
     >
@@ -17,7 +17,7 @@ function User({ user }: { isLoading: boolean; user: userTypes }) {
         src={user.pictureUrl}
         fallbackSrc='/images/user-placeholder.jpg'
         alt='user'
-        boxSize='80px'
+        boxSize={['50px', '80px']}
         mx='auto'
         borderRadius='full'
         objectFit='cover'

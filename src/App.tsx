@@ -34,12 +34,12 @@ function App() {
             <Fonts />
             <Router>
               <Switch>
-                <Route path={ROUTES.SIGN_IN} component={SignIn} />
-                <Route path={ROUTES.SIGN_UP} component={SignUp} />
                 <Route path={ROUTES.PROFILE} component={Profile} />
                 <Route path={ROUTES.USERS} component={Users} />
                 <Route path={ROUTES.POST} component={PostPage} />
                 <Route path={ROUTES.DASHBOARD} component={Dashboard} exact />
+                <Route path={ROUTES.SIGN_IN} component={SignIn} />
+                <Route path={ROUTES.SIGN_UP} component={SignUp} />
                 <Route component={NotFound} />
               </Switch>
             </Router>

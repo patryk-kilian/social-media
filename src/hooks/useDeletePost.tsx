@@ -11,8 +11,6 @@ function useDeletePost() {
     }) => {
       await db.collection('posts').doc(deletePostData.docId).delete();
 
-      console.log(deletePostData.userDocId);
-
       await db
         .collection('users')
         .doc(deletePostData.userDocId)
