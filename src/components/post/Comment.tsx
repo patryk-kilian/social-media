@@ -79,14 +79,16 @@ function Comment({ comment }: { comment: commentTypes }) {
           </Box>
         </Box>
       </Flex>
-      <CommentDeleteAlert
-        commentId={commentId}
-        postDocId={postDocId}
-        docId={docId}
-        isOpen={isDeleteAlertOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onDeleteAlertClose}
-      />
+      {isDeleteAlertOpen && (
+        <CommentDeleteAlert
+          commentId={commentId}
+          postDocId={postDocId}
+          docId={docId}
+          isOpen={isDeleteAlertOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onDeleteAlertClose}
+        />
+      )}
     </Box>
   );
 }

@@ -83,14 +83,16 @@ function Actions({
           onClick={() => setDeleteAlertOpen(true)}
         />
       )}
-      <PostDeleteAlert
-        userDocId={activeUser?.docId}
-        postId={postId}
-        postDocId={postDocId}
-        isOpen={isDeleteAlertOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onDeleteAlertClose}
-      />
+      {isDeleteAlertOpen && (
+        <PostDeleteAlert
+          userDocId={activeUser?.docId}
+          postId={postId}
+          postDocId={postDocId}
+          isOpen={isDeleteAlertOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onDeleteAlertClose}
+        />
+      )}
     </Flex>
   );
 }

@@ -15,6 +15,7 @@ function CommentDeleteAlert(props: any) {
   const { mutate: deleteComment, isLoading, isSuccess } = useDeleteComment();
 
   useEffect(() => {
+    console.log('comment effect');
     if (isSuccess) {
       props.onClose();
     }

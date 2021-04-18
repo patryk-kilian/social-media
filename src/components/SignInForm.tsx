@@ -71,6 +71,10 @@ function SignInForm() {
 
   useEffect(() => {
     document.title = 'Sign In';
+
+    return () => {
+      document.title = 'Social Media';
+    };
   }, []);
 
   return (
