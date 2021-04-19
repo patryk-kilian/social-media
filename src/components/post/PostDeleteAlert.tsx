@@ -25,7 +25,7 @@ function PostDeleteAlert(props: any) {
         history.push('/');
       }
     }
-  }, [props]);
+  }, [props, location.pathname, isSuccess, history]);
 
   return (
     <AlertDialog {...otherProps}>

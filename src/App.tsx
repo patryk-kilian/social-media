@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import PrivateRoute from './components/PrivateRoute';
 
 import { AuthProvider } from './context/auth-context';
 import { ActiveUserProvider } from './context/active-user';
@@ -34,12 +35,16 @@ function App() {
             <Fonts />
             <Router>
               <Switch>
-                <Route path={ROUTES.PROFILE} component={Profile} />
-                <Route path={ROUTES.USERS} component={Users} />
-                <Route path={ROUTES.POST} component={PostPage} />
-                <Route path={ROUTES.DASHBOARD} component={Dashboard} exact />
                 <Route path={ROUTES.SIGN_IN} component={SignIn} />
                 <Route path={ROUTES.SIGN_UP} component={SignUp} />
+                <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
+                <PrivateRoute path={ROUTES.USERS} component={Users} />
+                <PrivateRoute path={ROUTES.POST} component={PostPage} />
+                <PrivateRoute
+                  path={ROUTES.DASHBOARD}
+                  component={Dashboard}
+                  exact
+                />
                 <Route component={NotFound} />
               </Switch>
             </Router>

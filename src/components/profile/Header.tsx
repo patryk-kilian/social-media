@@ -34,16 +34,17 @@ function Header({
   const isActiveUserProfile = user?.userId === activeUser?.userId;
 
   return (
-    <Flex p={['4', '6']} pos='relative'>
+    <Flex p={['4', '6']} pos='relative' align='center'>
       <Image
         src={pictureUrl || '/images/user-placeholder.jpg'}
-        fallback={<SkeletonCircle size='150px' />}
+        fallback={<SkeletonCircle boxSize={['80px', '100px', '150px']} />}
         alt='user'
         boxSize={['80px', '100px', '150px']}
         borderRadius='full'
         objectFit='cover'
       />
-      <Flex direction='column' maxW='450px' w='full' ml='4'>
+
+      <Flex direction='column' maxW='450px' flex='1' ml='4'>
         {isActiveUserProfile ? (
           <Button
             pos={['static', 'absolute']}
@@ -59,16 +60,17 @@ function Header({
           </Button>
         ) : (
           <FollowButton
-            pos='absolute'
+            pos={['static', 'absolute']}
             top='6'
             right='6'
-            size='md'
+            size={buttonSize}
+            maxW={['100px', 'auto']}
             activeUser={activeUser}
             user={user}
           />
         )}
         <Text fontSize={['md', 'xl', '2xl']}>{username}</Text>
-        <Flex justify='space-between' py={['2', '8', '4']}>
+        <Flex justify='space-between' py={['2', '4']}>
           <Text fontSize={['sm', 'xl']}>posts:&nbsp;{posts.length}</Text>
           <Text fontSize={['sm', 'xl']}>
             followers:&nbsp;{followers?.length}
@@ -78,13 +80,7 @@ function Header({
           </Text>
         </Flex>
         {fullname && <Text fontSize={['md', 'xl', '2xl']}>{fullname}</Text>}
-        <Text
-          color='gray.700'
-          fontSize={['sm', 'lg']}
-          pos={['static', 'absolute']}
-          bottom='10'
-          right='6'
-        >
+        <Text color='gray.700' fontSize={['sm', 'lg']}>
           Joined: {format(dateCreated, 'MMMM YYY')}
         </Text>
       </Flex>

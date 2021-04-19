@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -68,14 +68,6 @@ function SignInForm() {
     setLoading(false);
     reset();
   };
-
-  useEffect(() => {
-    document.title = 'Sign In';
-
-    return () => {
-      document.title = 'Social Media';
-    };
-  }, []);
 
   return (
     <Box mx='1' maxW='md' w='100%' p='9' borderWidth='1px' borderRadius='lg'>

@@ -6,10 +6,16 @@ import NewUsersSkeleton from '../skeleton/NewUsersSkeleton';
 import { Link as RouterLink } from 'react-router-dom';
 import { USERS } from '../../constants/routes';
 
-function UsersList({ activeUser }: { activeUser: userTypes }) {
+function UsersList({
+  activeUser,
+  isActiveUserLoading,
+}: {
+  activeUser: userTypes;
+  isActiveUserLoading: boolean;
+}) {
   const { data: newUsers, isLoading } = useNewUsers();
 
-  if (isLoading) return <NewUsersSkeleton />;
+  if (isLoading || isActiveUserLoading) return <NewUsersSkeleton />;
 
   return (
     <Box textAlign='center'>

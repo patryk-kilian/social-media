@@ -20,7 +20,7 @@ function Sidebar() {
       display={['none', 'none', 'none', 'block']}
     >
       <ActiveUser isLoading={isLoading} user={activeUser} />
-      <UsersList activeUser={activeUser} />
+      <UsersList isActiveUserLoading={isLoading} activeUser={activeUser} />
     </Box>
   );
 }
