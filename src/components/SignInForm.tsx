@@ -28,6 +28,7 @@ type FormData = {
 
 function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isDemoSubmit, setDemoSubmit] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm<FormData>();
   const { login } = useAuth();
   const [isLoading, setLoading] = useState(false);
@@ -36,10 +37,45 @@ function SignInForm() {
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
+  console.log(isDemoSubmit);
+
   const handleSignInSubmit = async (data: FormData) => {
     const userData = {
       password: data.password,
       email: data.email,
+    };
+
+    try {
+      setLoading(true);
+
+      await login(userData);
+
+      toast({
+        title: 'You are logged in',
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+      });
+
+      history.push(DASHBOARD);
+    } catch (error) {
+      toast({
+        title: 'Signing In failed',
+        description: error.message,
+        status: 'error',
+        isClosable: true,
+        position: 'top',
+      });
+    }
+
+    setLoading(false);
+    reset();
+  };
+
+  const handleDemoLogin = async () => {
+    const userData = {
+      password: process.env.REACT_APP_DEMO_PASS,
+      email: process.env.REACT_APP_DEMO_EMAIL,
     };
 
     try {
@@ -112,6 +148,18 @@ function SignInForm() {
           Sign In
         </Button>
       </form>
+      <Button
+        onClick={handleDemoLogin}
+        mt='4'
+        type='submit'
+        colorScheme='purple'
+        size='md'
+        isFullWidth
+        isLoading={isLoading ? true : false}
+        loadingText='Signing In'
+      >
+        Demo Sign In
+      </Button>
       <Text fontSize='xl' align='center' mt='4'>
         Don't have account?{' '}
         <Link
