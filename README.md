@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Social Media
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Social Media app built with React + Typescript on the front-end and Firebase on the backend
 
-## Available Scripts
+Check out the [deployed site](https://social-media-pkilian.netlify.app/) - You don't need to create an account, just use "Demo Sing In" button to use demo account.
 
-In the project directory, you can run:
+## Summary
 
-### `npm start`
+This application was built using React (Custom Hooks, Context, React Query, Chakra UI) and Firebase. Firebase firestore handles all the data, and that data is retrieved using a React Query with custom hooks.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+I used Chakra UI with chakra default theme for this project because i wanted to focus more on funcionality than design. This libary is really simple, composable and provide great developer experience so i really enjoyed using it. All application data comes from firebase so for fetching and managing data I chose React Query. It is such a great libary and i really enjoyed using it in my projects and I won't stop using it in my future projects :). I provided auth and active user data to other components via react contex on client side.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Core packages
 
-### `npm test`
+1. React Query - Fetch, cache and update data from firebase
+2. React Router - Routing
+3. Chakra UI - ui component libary and styling
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+1. Login/Signup
+2. Edit profile (add avatar, set fullname)
+3. Follow/Unfollow users to see their posts
+4. Add/Delete posts
+5. Like/Dislike posts
+6. Add/Delete comments to posts
+7. Check user profile
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running locally
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You need to create firebase app on firebase.google.com then you will get you configuration data.
+At the root of your project create an .env.local file with your firebase data:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
 
-### `npm run eject`
+REACT_APP_API_KEY=<apiKey>
+REACT_APP_AUTH_DOMAIN=<authDomain>
+REACT_APP_PROJECT_ID=<projectId>
+REACT_APP_STORAGE_BUCKET=<storageBucket>
+REACT_APP_MESSAGING_ID=<messagingSenderId>
+REACT_APP_APP_ID=<appId>
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Then run <code>npm i</code> and <code>npm start</code> to see this app in action.
