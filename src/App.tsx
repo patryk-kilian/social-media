@@ -3,16 +3,16 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import PrivateRoute from './components/PrivateRoute';
-
 import { AuthProvider } from './context/auth-context';
 import { ActiveUserProvider } from './context/active-user';
+
+import PrivateRoute from './components/PrivateRoute';
+import Fonts from './components/Fonts';
 
 import SignIn from './pages/sign-in';
 import SignUp from './pages/sign-up';
 import Profile from './pages/profile';
 import Dashboard from './pages/dashboard';
-import Fonts from './components/Fonts';
 import NotFound from './pages/not-found';
 import Users from './pages/users';
 import PostPage from './pages/post';

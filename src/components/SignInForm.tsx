@@ -11,14 +11,12 @@ import {
   Heading,
   Text,
   Link,
-  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { passwordValidate, emailValidate } from '../utils/form-validate';
 import { Link as RouterLink } from 'react-router-dom';
-import { SIGN_UP, DASHBOARD } from '../constants/routes';
-import { useAuth } from '../context/auth-context';
-import { useHistory } from 'react-router-dom';
+import { SIGN_UP } from '../constants/routes';
+import useSignIn from '../hooks/useSignIn';
 
 type FormData = {
   name: string;
@@ -28,16 +26,10 @@ type FormData = {
 
 function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isDemoSubmit, setDemoSubmit] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm<FormData>();
-  const { login } = useAuth();
-  const [isLoading, setLoading] = useState(false);
-  const toast = useToast();
-  const history = useHistory();
+  const { demoSignIn, signIn, isLoading } = useSignIn();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
-
-  console.log(isDemoSubmit);
 
   const handleSignInSubmit = async (data: FormData) => {
     const userData = {
@@ -45,63 +37,14 @@ function SignInForm() {
       email: data.email,
     };
 
-    try {
-      setLoading(true);
+    await signIn(userData);
 
-      await login(userData);
-
-      toast({
-        title: 'You are logged in',
-        status: 'success',
-        isClosable: true,
-        position: 'top',
-      });
-
-      history.push(DASHBOARD);
-    } catch (error) {
-      toast({
-        title: 'Signing In failed',
-        description: error.message,
-        status: 'error',
-        isClosable: true,
-        position: 'top',
-      });
-    }
-
-    setLoading(false);
     reset();
   };
 
   const handleDemoLogin = async () => {
-    const userData = {
-      password: process.env.REACT_APP_DEMO_PASS,
-      email: process.env.REACT_APP_DEMO_EMAIL,
-    };
+    await demoSignIn();
 
-    try {
-      setLoading(true);
-
-      await login(userData);
-
-      toast({
-        title: 'You are logged in',
-        status: 'success',
-        isClosable: true,
-        position: 'top',
-      });
-
-      history.push(DASHBOARD);
-    } catch (error) {
-      toast({
-        title: 'Signing In failed',
-        description: error.message,
-        status: 'error',
-        isClosable: true,
-        position: 'top',
-      });
-    }
-
-    setLoading(false);
     reset();
   };
 
