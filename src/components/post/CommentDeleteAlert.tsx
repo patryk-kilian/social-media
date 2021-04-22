@@ -10,9 +10,25 @@ import {
 } from '@chakra-ui/react';
 import useDeleteComment from '../../hooks/useDeleteComment';
 
-function CommentDeleteAlert(props: any) {
-  const { docId, postDocId, commentId, ...otherProps } = props;
+type CommentDeleteAlertProps = {
+  docId: string | undefined;
+  postDocId: string;
+  commentId: string;
+  isOpen: boolean;
+  onClose: () => void;
+  leastDestructiveRef: React.RefObject<any>;
+};
+
+function CommentDeleteAlert(props: CommentDeleteAlertProps) {
   const { mutate: deleteComment, isLoading, isSuccess } = useDeleteComment();
+
+  const { onClose, leastDestructiveRef, isOpen } = props;
+
+  const deleteCommentData = {
+    docId: props.docId,
+    postDocId: props.postDocId,
+    commentId: props.commentId,
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -21,7 +37,11 @@ function CommentDeleteAlert(props: any) {
   }, [isSuccess, props]);
 
   return (
-    <AlertDialog {...otherProps}>
+    <AlertDialog
+      isOpen={isOpen}
+      onClose={onClose}
+      leastDestructiveRef={leastDestructiveRef}
+    >
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize='lg' fontWeight='bold'>
@@ -33,13 +53,13 @@ function CommentDeleteAlert(props: any) {
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={props.cancelRef} onClick={props.onClose}>
+            <Button ref={leastDestructiveRef} onClick={props.onClose}>
               Cancel
             </Button>
             <Button
               isLoading={isLoading ? true : false}
               colorScheme='red'
-              onClick={() => deleteComment({ docId, postDocId, commentId })}
+              onClick={() => deleteComment(deleteCommentData)}
               ml={3}
             >
               Delete

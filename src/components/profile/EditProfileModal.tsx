@@ -15,24 +15,31 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { storage } from '../../lib/firebase';
-import useUpdateUser from '../../hooks/useUpdateUser';
 import { useActiveUser } from '../../context/active-user';
+import useUpdateUser from '../../hooks/useUpdateUser';
 
 type EditProfileModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
+type FormData = {
+  picture: any;
+  fullname: string | undefined;
+};
+
 function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
   const [isPictureUploading, setPictureUploading] = useState(false);
   const [picturePreview, setPicturePreview] = useState('');
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<FormData>();
   const { activeUser } = useActiveUser();
+
   const {
     mutate: updateUser,
     isLoading: isUpdating,
     isSuccess: isUpdateSuccess,
   } = useUpdateUser();
+
   const toast = useToast();
 
   const handleFileInputChange = (e: any) => {
@@ -41,7 +48,7 @@ function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
     setPicturePreview(picturePreview);
   };
 
-  const handleEditSubmit = async (data: any) => {
+  const handleEditSubmit = async (data: FormData) => {
     const pictureFile = data.picture[0];
     const storageRef = storage.ref();
     const fileRef = storageRef.child(activeUser.userId);

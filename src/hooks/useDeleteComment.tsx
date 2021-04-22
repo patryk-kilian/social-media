@@ -5,7 +5,7 @@ import { queryClient } from '../App';
 function useDeleteComment() {
   return useMutation(
     async (deleteCommentData: {
-      docId: string;
+      docId: string | undefined;
       postDocId: string;
       commentId: string;
     }) => {

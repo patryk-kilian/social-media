@@ -1,13 +1,12 @@
 import { IconButton, Box } from '@chakra-ui/react';
 import { FaBars } from 'react-icons/fa';
 
-function MenuToggle({
-  toggle,
-  isOpen,
-}: {
+type MenuToggleProps = {
   toggle: () => void;
   isOpen: boolean;
-}) {
+};
+
+function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
   return (
     <Box py='2' pl='4' display={['block', 'block', 'block', 'none']}>
       <IconButton

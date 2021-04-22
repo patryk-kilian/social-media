@@ -1,18 +1,17 @@
 import { Box, Heading, Button } from '@chakra-ui/react';
-import User from './User';
-import useNewUsers from '../../hooks/useNewUsers';
-import { userTypes } from '../../types';
-import NewUsersSkeleton from '../skeleton/NewUsersSkeleton';
+import { UserTypes } from '../../types';
 import { Link as RouterLink } from 'react-router-dom';
 import { USERS } from '../../constants/routes';
+import useNewUsers from '../../hooks/useNewUsers';
+import NewUsersSkeleton from '../skeleton/NewUsersSkeleton';
+import User from './User';
 
-function UsersList({
-  activeUser,
-  isActiveUserLoading,
-}: {
-  activeUser: userTypes;
+type UsersListProps = {
+  activeUser: UserTypes;
   isActiveUserLoading: boolean;
-}) {
+};
+
+function UsersList({ activeUser, isActiveUserLoading }: UsersListProps) {
   const { data: newUsers, isLoading } = useNewUsers();
 
   if (isLoading || isActiveUserLoading) return <NewUsersSkeleton />;

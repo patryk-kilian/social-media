@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useAuth } from '../../context/auth-context';
 import { Box, Flex, Button, Link } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
-import { SIGN_IN } from '../../constants/routes';
-import { DASHBOARD } from '../../constants/routes';
 import { Link as RouterLink } from 'react-router-dom';
+import { DASHBOARD, SIGN_IN } from '../../constants/routes';
+import { useAuth } from '../../context/auth-context';
 import MenuToggle from './MenuToggle';
 import MobileMenu from './MobileMenu';
 

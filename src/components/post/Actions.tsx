@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react';
 import { Flex, IconButton, Text } from '@chakra-ui/react';
-import { FaHeart, FaRegHeart, FaComment, FaTrashAlt } from 'react-icons/fa';
+import { Link as RouterLink } from 'react-router-dom';
 import { useActiveUser } from '../../context/active-user';
 import useToggleLike from '../../hooks/useToggleLike';
+import { FaHeart, FaRegHeart, FaComment, FaTrashAlt } from 'react-icons/fa';
 import PostDeleteAlert from './PostDeleteAlert';
-import { Link as RouterLink } from 'react-router-dom';
 
-type PostActionsTypes = {
+type PostActionsProps = {
   likes: [];
   postDocId: string | undefined;
   postId: string;
@@ -20,7 +20,7 @@ function Actions({
   postId,
   authorId,
   comments,
-}: PostActionsTypes) {
+}: PostActionsProps) {
   const [isDeleteAlertOpen, setDeleteAlertOpen] = useState(false);
   const { activeUser } = useActiveUser();
   const { mutate: toggleLike, isLoading } = useToggleLike();

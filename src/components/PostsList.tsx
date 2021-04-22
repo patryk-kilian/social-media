@@ -1,14 +1,14 @@
 import { Box, Text, Link } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import usePosts from '../hooks/usePosts';
 import { focusManager } from 'react-query';
-import { userTypes, postTypes } from '../types';
-import Post from '../components/post';
-import PostsListSkeleton from '../components/skeleton/PostsListSkeleton';
+import { UserTypes, PostTypes } from '../types';
 import { USERS } from '../constants/routes';
 import { Link as RouterLink } from 'react-router-dom';
+import usePosts from '../hooks/usePosts';
+import PostsListSkeleton from '../components/skeleton/PostsListSkeleton';
+import Post from '../components/post';
 
-function PostsList({ user }: { user: userTypes }) {
+function PostsList({ user }: { user: UserTypes }) {
   const { data: posts, isLoading } = usePosts(user.userId, user.following);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function PostsList({ user }: { user: userTypes }) {
           or add post.
         </Text>
       ) : (
-        posts?.map((post: postTypes) => <Post key={post.postId} post={post} />)
+        posts?.map((post: PostTypes) => <Post key={post.postId} post={post} />)
       )}
     </Box>
   );

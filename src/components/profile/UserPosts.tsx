@@ -1,8 +1,8 @@
 import { Box, Heading, Text } from '@chakra-ui/react';
-import Post from '../post';
+import { PostTypes } from '../../types';
 import usePosts from '../../hooks/useUserPosts';
-import { postTypes } from '../../types';
 import PostsListSkeleton from '../../components/skeleton/PostsListSkeleton';
+import Post from '../post';
 
 function UserPosts({ userId }: { userId: string }) {
   const { data: posts, isLoading } = usePosts(userId);
@@ -26,7 +26,7 @@ function UserPosts({ userId }: { userId: string }) {
         <PostsListSkeleton />
       ) : (
         <Box maxW='600px' mx='auto' px={['0', '4']} pt='6'>
-          {posts?.map((post: postTypes) => (
+          {posts?.map((post: PostTypes) => (
             <Post key={post.postId} post={post} />
           ))}
         </Box>

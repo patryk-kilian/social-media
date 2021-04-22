@@ -1,11 +1,11 @@
 import { useMutation } from 'react-query';
 import { db, FieldValue } from '../lib/firebase';
 import { queryClient } from '../App';
-import { postTypes } from '../types/index';
+import { PostTypes } from '../types/index';
 
 function useAddPost() {
   return useMutation(
-    async (postData: postTypes) => {
+    async (postData: PostTypes) => {
       await db.collection('posts').add(postData);
 
       await db

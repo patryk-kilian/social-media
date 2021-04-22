@@ -5,7 +5,7 @@ import { queryClient } from '../App';
 function useDeletePost() {
   return useMutation(
     async (deletePostData: {
-      docId: string;
+      docId: string | undefined;
       userDocId: string;
       postId: string;
     }) => {

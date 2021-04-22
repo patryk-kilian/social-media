@@ -7,14 +7,14 @@ import {
   SkeletonCircle,
   IconButton,
 } from '@chakra-ui/react';
-import { FaTrashAlt } from 'react-icons/fa';
 import { formatDistance } from 'date-fns';
-import { useActiveUser } from '../../context/active-user';
 import { Link as RouterLink } from 'react-router-dom';
+import { CommentTypes } from '../../types';
+import { useActiveUser } from '../../context/active-user';
+import { FaTrashAlt } from 'react-icons/fa';
 import CommentDeleteAlert from './CommentDeleteAlert';
-import { commentTypes } from '../../types';
 
-function Comment({ comment }: { comment: commentTypes }) {
+function Comment({ comment }: { comment: CommentTypes }) {
   const [isDeleteAlertOpen, setDeleteAlertOpen] = useState(false);
 
   const {
@@ -27,6 +27,7 @@ function Comment({ comment }: { comment: commentTypes }) {
     postDocId,
     commentId,
   } = comment;
+
   const { activeUser } = useActiveUser();
   const cancelRef = useRef();
 

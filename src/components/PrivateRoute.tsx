@@ -1,19 +1,13 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from '../context/auth-context';
 import { SIGN_IN } from '../constants/routes';
+import { Redirect, Route, RouteProps } from 'react-router';
 
-const PrivateRoute = ({ component: Component, ...rest }: any) => {
+export default function ProtectedRoute({ ...routeProps }: RouteProps) {
   const { authUser } = useAuth();
 
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        authUser ? <Component {...props} /> : <Redirect to={SIGN_IN} />
-      }
-    />
-  );
-};
-
-export default PrivateRoute;
+  if (authUser) {
+    return <Route {...routeProps} />;
+  } else {
+    return <Redirect to={SIGN_IN} />;
+  }
+}

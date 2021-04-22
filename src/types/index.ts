@@ -1,4 +1,4 @@
-export type userTypes = {
+export type UserTypes = {
   dateCreated: number;
   emailAdress: string;
   followers: string[];
@@ -11,11 +11,11 @@ export type userTypes = {
   fullname?: string;
 }
 
-export type postTypes = {
+export type PostTypes = {
   postId: string;
   userId: string;
   userDocId: string;
-  docId?: string;
+  docId?: string | undefined;
   postText: string;
   likes: [];
   comments: [];
@@ -24,14 +24,14 @@ export type postTypes = {
   username: string
 }
 
-export type commentTypes = {
+export type CommentTypes = {
   userId: string;
   commentText: string;
   username: string;
-    userAvatar: string | undefined;
+  userAvatar: string | undefined;
   dateCreated: number;
   commentId: string;
   postId?: string;
   docId?: string;
-  postDocId?: string;
+  postDocId: string;
 }

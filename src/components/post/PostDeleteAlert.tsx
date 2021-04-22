@@ -8,14 +8,30 @@ import {
   AlertDialogOverlay,
   Button,
 } from '@chakra-ui/react';
-import useDeletePost from '../../hooks/useDeletePost';
 import { useLocation, useHistory } from 'react-router-dom';
+import useDeletePost from '../../hooks/useDeletePost';
 
-function PostDeleteAlert(props: any) {
-  const { postDocId, userDocId, postId, ...otherProps } = props;
-  const { mutate: deletePost, isLoading, isSuccess } = useDeletePost();
+type PostDeleteAlertProps = {
+  postDocId: string | undefined;
+  userDocId: string;
+  postId: string;
+  isOpen: boolean;
+  onClose: () => void;
+  leastDestructiveRef: React.RefObject<any>;
+};
+
+function PostDeleteAlert(props: PostDeleteAlertProps) {
   const location = useLocation();
   const history = useHistory();
+  const { mutate: deletePost, isLoading, isSuccess } = useDeletePost();
+
+  const { onClose, leastDestructiveRef, isOpen } = props;
+
+  const deletePostData = {
+    docId: props.postDocId,
+    userDocId: props.userDocId,
+    postId: props.postId,
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -28,7 +44,11 @@ function PostDeleteAlert(props: any) {
   }, [props, location.pathname, isSuccess, history]);
 
   return (
-    <AlertDialog {...otherProps}>
+    <AlertDialog
+      isOpen={isOpen}
+      onClose={onClose}
+      leastDestructiveRef={leastDestructiveRef}
+    >
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize='lg' fontWeight='bold'>
@@ -40,15 +60,13 @@ function PostDeleteAlert(props: any) {
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={props.cancelRef} onClick={props.onClose}>
+            <Button ref={leastDestructiveRef} onClick={props.onClose}>
               Cancel
             </Button>
             <Button
               isLoading={isLoading ? true : false}
               colorScheme='red'
-              onClick={() =>
-                deletePost({ docId: postDocId, userDocId, postId })
-              }
+              onClick={() => deletePost(deletePostData)}
               ml={3}
             >
               Delete

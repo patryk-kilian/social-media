@@ -1,11 +1,11 @@
 import { Flex, Image, Link } from '@chakra-ui/react';
-import { userTypes } from '../../types';
+import { UserTypes } from '../../types';
 import FollowButton from '../../components/shared/FollowButton';
 import { Link as RouterLink } from 'react-router-dom';
 
 type UserProps = {
-  user: userTypes;
-  activeUser: userTypes | any;
+  user: UserTypes;
+  activeUser: UserTypes | any;
 };
 
 function User({ user, activeUser }: UserProps) {

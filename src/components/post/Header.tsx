@@ -2,7 +2,7 @@ import { Flex, Box, SkeletonCircle, Image, Text } from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
 import { Link as RouterLink } from 'react-router-dom';
 
-type PostHeaderTypes = {
+type PostHeaderProps = {
   userAvatar: string | undefined;
   dateCreated: number;
   username: string;
@@ -14,7 +14,7 @@ function Header({
   dateCreated,
   username,
   userId,
-}: PostHeaderTypes) {
+}: PostHeaderProps) {
   return (
     <Flex
       as='header'

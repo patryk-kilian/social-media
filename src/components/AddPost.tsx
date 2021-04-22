@@ -12,22 +12,22 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useForm } from 'react-hook-form';
-import useAddPost from '../hooks/useAddPost';
-import { userTypes, postTypes } from '../types';
+import { UserTypes, PostTypes } from '../types';
 import { v4 as uuidv4 } from 'uuid';
+import useAddPost from '../hooks/useAddPost';
 
 type FormData = {
   postText: string;
 };
 
-function AddPost({ user }: { user: userTypes }) {
+function AddPost({ user }: { user: UserTypes }) {
   const [textInputLength, setTextInputLength] = useState(0);
   const { register, handleSubmit, reset } = useForm<FormData>();
   const { mutate: addPost, isLoading: isAdding } = useAddPost();
   const maxTextInputLength = 280;
 
   const handleAddPost = (data: FormData) => {
-    const postData: postTypes = {
+    const postData: PostTypes = {
       postId: uuidv4(),
       userId: user.userId,
       userDocId: user.docId,
@@ -45,8 +45,10 @@ function AddPost({ user }: { user: userTypes }) {
     setTextInputLength(0);
   };
 
-  const onTextInputChange = (e: any) =>
+  const onTextInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setTextInputLength(e.target.value.length);
+
+  const isMaximumLengthReached = textInputLength >= maxTextInputLength;
 
   return (
     <Box maxW='600px' mx='auto' py={['6', '10']}>
@@ -103,9 +105,7 @@ function AddPost({ user }: { user: userTypes }) {
               )}
               <Button
                 isLoading={isAdding ? true : false}
-                isDisabled={
-                  textInputLength >= maxTextInputLength ? true : false
-                }
+                isDisabled={isMaximumLengthReached ? true : false}
                 type='submit'
                 colorScheme='purple'
                 size='md'

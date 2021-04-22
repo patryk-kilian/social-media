@@ -1,8 +1,8 @@
 import { Box, Image, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { userTypes } from '../../types';
+import { UserTypes } from '../../types';
 
-function User({ user }: { isLoading: boolean; user: userTypes }) {
+function User({ user }: { isLoading: boolean; user: UserTypes }) {
   return (
     <Box
       as='li'

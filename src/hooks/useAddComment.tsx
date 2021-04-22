@@ -1,11 +1,11 @@
 import { useMutation } from 'react-query';
 import { db, FieldValue } from '../lib/firebase';
 import { queryClient } from '../App';
-import { commentTypes } from '../types';
+import { CommentTypes } from '../types';
 
 function useAddComment() {
   return useMutation(
-    async (commentData: commentTypes) => {
+    async (commentData: CommentTypes) => {
       await db.collection('comments').add(commentData);
 
       await db

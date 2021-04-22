@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
-import ActiveUser from './ActiveUser';
-import UsersList from './UsersList';
 import { useActiveUser } from '../../context/active-user';
+import UsersList from './UsersList';
+import ActiveUser from './ActiveUser';
 
 function Sidebar() {
   const { activeUser, isLoading } = useActiveUser();

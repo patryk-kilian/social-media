@@ -6,24 +6,23 @@ import {
   Button,
   SkeletonCircle,
 } from '@chakra-ui/react';
-import { userTypes } from '../../types';
+import { UserTypes } from '../../types';
 import { Link as RouterLink } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
+import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import useAddComment from '../../hooks/useAddComment';
-import { v4 as uuidv4 } from 'uuid';
 
 type FormData = {
   commentText: string;
 };
 
-function AddComment({
-  user,
-  postDocId,
-}: {
-  user: userTypes;
+type AddCommentProps = {
+  user: UserTypes;
   postDocId: string;
-}) {
+};
+
+function AddComment({ user, postDocId }: AddCommentProps) {
   const { register, handleSubmit, reset } = useForm<FormData>();
   const { mutate: addComment, isLoading: isAdding } = useAddComment();
 

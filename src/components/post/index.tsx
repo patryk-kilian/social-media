@@ -1,10 +1,10 @@
 import { Box } from '@chakra-ui/react';
-import { postTypes } from '../../types';
+import { PostTypes } from '../../types';
 import Header from './Header';
 import Actions from './Actions';
 import Content from './Content';
 
-function Post({ post }: { post: postTypes }) {
+function Post({ post }: { post: PostTypes }) {
   const {
     userAvatar,
     postText,

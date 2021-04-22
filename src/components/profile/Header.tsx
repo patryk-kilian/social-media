@@ -7,20 +7,20 @@ import {
   SkeletonCircle,
   useBreakpointValue,
 } from '@chakra-ui/react';
+import { UserTypes } from '../../types';
+import { format } from 'date-fns';
 import EditProfileModal from './EditProfileModal';
 import FollowButton from '../shared/FollowButton';
-import { userTypes } from '../../types';
-import { format } from 'date-fns';
 
-function Header({
-  user,
-  activeUser,
-}: {
-  user: userTypes;
-  activeUser: userTypes;
-}) {
+type HeaderProps = {
+  user: UserTypes;
+  activeUser: UserTypes;
+};
+
+function Header({ user, activeUser }: HeaderProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const buttonSize = useBreakpointValue({ base: 'xs', sm: 'sm', md: 'md' });
+
   const {
     username,
     following,

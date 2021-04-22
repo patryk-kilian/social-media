@@ -10,7 +10,7 @@ import PostSkeleton from '../components/skeleton/PostSkeleton';
 
 function PostPage() {
   const { postid }: { postid: string } = useParams();
-  const { data: post, isLoading }: any = usePost(postid);
+  const { data: post, isLoading } = usePost(postid);
 
   const { activeUser } = useActiveUser();
 

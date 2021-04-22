@@ -1,7 +1,7 @@
-import useAllUsers from '../../hooks/useAllUsers';
-import User from './User';
 import { SimpleGrid } from '@chakra-ui/react';
+import useAllUsers from '../../hooks/useAllUsers';
 import UsersSkeleton from '../skeleton/UsersSkeleton';
+import User from './User';
 
 function AllUsers() {
   const { data: users, isLoading } = useAllUsers();

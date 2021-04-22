@@ -5,7 +5,7 @@ function usePost(postid: string) {
   return useQuery(['post', postid], async () => {
     const result = await db.collection('posts').doc(postid).get();
 
-    const post = {
+    const post: any = {
       ...result.data(),
       docId: result.id,
     };
