@@ -8,13 +8,15 @@ Check out the [deployed site](https://social-media-pkilian.netlify.app/) - You d
 
 This application was built using React (Custom Hooks, Context, React Query, Chakra UI) and Firebase. Firebase firestore handles all the data, and that data is retrieved using a React Query with custom hooks.
 
-I used Chakra UI with chakra default theme for this project because i wanted to focus more on funcionality than design. This libary is really simple, composable and provide great developer experience so i really enjoyed using it. All application data comes from firebase so for fetching and managing data I chose React Query. It is such a great libary and i really enjoyed using it in my projects and I won't stop using it in my future projects :). I provided auth and active user data to other components via react contex on client side.
+I used Chakra UI with chakra default theme for this project because i wanted to focus more on funcionality than design. This libary is really simple, composable and provide great developer experience so i really enjoyed using it. All application data comes from firebase so for fetching and managing data I chose React Query. It is such a great libary and i really enjoyed using it in my projects and I won't stop using it in my future projects :). I also used great and simple libary react-hook-form for handling the forms. I provided auth and active user data to other components via react contex on client side.
 
 ## Core packages
 
 1. React Query - Fetch, cache and update data from firebase
 2. React Router - Routing
 3. Chakra UI - ui component libary and styling
+4. React Hook Form - handling forms
+5. date-fns - formating dates
 
 ## Features
 
